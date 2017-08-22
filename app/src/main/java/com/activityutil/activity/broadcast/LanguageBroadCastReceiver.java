@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.activityutil.activity.BaseAppCompatActivity;
+import com.activityutil.activity.activity.BaseAppCompatActivity;
 
 /**
  * Created by clickapps on 24/2/16.

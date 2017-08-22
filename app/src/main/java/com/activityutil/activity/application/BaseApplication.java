@@ -11,7 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.activityutil.activity.ActivityManagerUtil;
+import com.activityutil.activity.activity.ActivityManagerUtil;
 import com.activityutil.activity.Constants;
 import com.activityutil.activity.broadcast.InternetBroadCastReceiver;
 
@@ -27,6 +27,7 @@ public class BaseApplication extends Application implements Application.Activity
     @Override
     public void onCreate() {
         super.onCreate();
+        setPackageName(getPackageName());
         internetBroadCastReceiver = new InternetBroadCastReceiver();
     }
 
