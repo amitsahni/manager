@@ -1,7 +1,5 @@
 
-ActivtyFragUtils  [](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
---------
-
+[](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
 
 #### Start Activity
 
@@ -65,6 +63,8 @@ public class SampleActivity extends BaseAppCompatActivity{
 Download
 --------
 Add the JitPack repository to your root build.gradle:
+
+[![](https://jitpack.io/v/amitclickapps/activity-frag-util.svg)](https://jitpack.io/#amitclickapps/activity-frag-util)
 
 [](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
 
