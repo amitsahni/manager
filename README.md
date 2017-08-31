@@ -1,6 +1,10 @@
-# activity-frag-util
+
+ActivtyFragUtils  [](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
+--------
+
 
 #### Start Activity
+
 ```
 ActivityManager.with(SampleActivity.this, ActivityParam.ActivityType.START)
                         .klass(SampleActivity.class)
@@ -57,4 +61,23 @@ public class SampleActivity extends BaseAppCompatActivity{
 #### If want Result `onActivityResult` from camera, Gallery have to use this in `OnResume()`
 ```
  enableOnActivityResultFragment(true) 
+```
+Download
+--------
+Add the JitPack repository to your root build.gradle:
+
+[](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
+
+```groovy
+	allprojects {
+		repositories {
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+Add the Gradle dependency:
+```groovy
+	dependencies {
+		compile 'com.github.amitclickapps:image-util:latest'
+	}
 ```
