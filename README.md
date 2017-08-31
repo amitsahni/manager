@@ -35,3 +35,26 @@ FragmentManager.with(this,R.id.replaceId)
                         .type(FragParam.FragType.REPLACE)
                         .build();
 ```
+#### Extend `BaseAppCompatActivity`
+##### If Connectivity Changes automatic notified under `OnConnectivityChanges`
+
+```
+public class SampleActivity extends BaseAppCompatActivity{
+
+@Override
+    protected void initUI() {
+        setContentView(R.layout.activity_sample);
+    }
+ 
+ @Override
+    public void onConnectivityChange(boolean isConnectivity) {
+        super.onConnectivityChange(isConnectivity);
+        Log.i(getLocalClassName(), "onConnectivityChange = " + isConnectivity);
+    }
+  }
+```
+
+#### If want Result `onActivityResult` from camera, Gallery have to use this in `OnResume()`
+```
+ enableOnActivityResultFragment(true) 
+```

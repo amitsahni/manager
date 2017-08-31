@@ -1,6 +1,5 @@
 package com.activityutil.activity.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -37,6 +36,7 @@ public abstract class BaseFragment extends Fragment implements
      */
     protected View mView;
     private boolean mEnableBack = false;
+    private boolean mEnableOnActivityResult = false;
 
     public static <T extends Fragment> Fragment init(@NonNull Class<T> fragment, Bundle bundle) {
         try {
@@ -76,6 +76,13 @@ public abstract class BaseFragment extends Fragment implements
     }
 
     /**
+     * Sets mFragment when called another activity or application eg camera or gallery
+     */
+    public void enableOnActivityResultFragment(boolean enableOnActivityResultFragment) {
+        mEnableOnActivityResult = enableOnActivityResultFragment;
+    }
+
+    /**
      * Sets enable back handle.
      *
      * @param enableBack the enable back handle
@@ -91,6 +98,7 @@ public abstract class BaseFragment extends Fragment implements
          */
         if (getActivity() instanceof BaseAppCompatActivity) {
             ((BaseAppCompatActivity) getActivity()).setBackHandler(mEnableBack ? this : null);
+            ((BaseAppCompatActivity) getActivity()).setOnActivityResultFragment(mEnableOnActivityResult ? this : null);
         }
         if (getActivity().getApplication() instanceof BaseApplication) {
             InternetBroadCastReceiver internetBroadCastReceiver
