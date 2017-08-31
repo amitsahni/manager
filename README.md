@@ -1,5 +1,6 @@
 
-![](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
+ActivityFragUtil ![](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
+-----------------------
 
 #### Start Activity
 
