@@ -38,4 +38,9 @@ public class MainActivity extends BaseAppCompatActivity {
             Log.i(getLocalClassName(), "No clickHandled");
         }
     }
+
+    @Override
+    public void onConnectivityChange(boolean isConnectivity) {
+        Log.i(getLocalClassName(), "isConnectivity = " + isConnectivity);
+    }
 }

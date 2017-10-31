@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import com.activityutil.activity.activity.ActivityManagerUtil;
 import com.activityutil.activity.Constants;
 import com.activityutil.activity.broadcast.InternetBroadCastReceiver;
+import com.activityutil.activity.broadcast.NetworkBroadCastReceiver;
 
 
 /**
@@ -28,6 +30,10 @@ public class BaseApplication extends Application implements Application.Activity
     public void onCreate() {
         super.onCreate();
         setPackageName(getPackageName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(new NetworkBroadCastReceiver(),
+                    new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
         internetBroadCastReceiver = new InternetBroadCastReceiver();
     }
 

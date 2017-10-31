@@ -67,6 +67,12 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(languageBroadCastReceiver);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (getApplication() instanceof BaseApplication) {

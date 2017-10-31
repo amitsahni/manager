@@ -39,7 +39,7 @@ FragmentManager.with(this,R.id.replaceId)
                         .build();
 ```
 #### Extend `BaseAppCompatActivity`
-##### If Connectivity Changes automatic notified under `OnConnectivityChanges`
+##### If Connectivity Changes automatic notified under `OnConnectivityChanges` but for this need to add `BaseApplication` in your manifest
 
 ```
 public class SampleActivity extends BaseAppCompatActivity{
