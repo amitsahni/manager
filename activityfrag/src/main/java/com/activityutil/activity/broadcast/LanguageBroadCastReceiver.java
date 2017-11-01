@@ -11,9 +11,7 @@ import com.activityutil.activity.activity.BaseAppCompatActivity;
 /**
  * Created by clickapps on 24/2/16.
  * <p class="note">Language change Broadcast is included in this {@link LanguageBroadCastReceiver}.
- * Whenever language changes this broadcast hits and result will pass on to listener {@link OnRequestHandleListener} if having
- * and also to {@link BaseAppCompatActivity}
- * </p>
+ * Whenever language changes this broadcast hits  * </p>
  */
 public class LanguageBroadCastReceiver extends BroadcastReceiver {
     private Activity mActivity;

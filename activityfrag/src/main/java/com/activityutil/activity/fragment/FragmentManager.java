@@ -105,7 +105,7 @@ public class FragmentManager {
      * @param replaceId the replace id
      * @return the builder
      */
-    public static FragParam.Builder with(@NonNull FragmentActivity context, @IdRes int replaceId) {
-        return new FragParam.Builder(context, replaceId);
+    public static Builder with(@NonNull FragmentActivity context, @IdRes int replaceId) {
+        return new Builder(context, replaceId);
     }
 }

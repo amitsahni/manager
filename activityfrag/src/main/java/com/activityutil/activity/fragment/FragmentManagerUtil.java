@@ -26,12 +26,12 @@ public class FragmentManagerUtil {
      * @param fragParam the frag param
      */
     static void performTask(FragParam fragParam) {
-        FragmentTransaction ft = fragParam.getContext().getFragmentManager()
+        FragmentTransaction ft = fragParam.context.getFragmentManager()
                 .beginTransaction();
-        if (fragParam.isEnableAnimation()) {
-            ft.setCustomAnimations(fragParam.getEnter(), fragParam.getExit(), fragParam.getPopEnter(), fragParam.getPopExit());
+        if (fragParam.enableAnimation) {
+            ft.setCustomAnimations(fragParam.enter, fragParam.exit, fragParam.popEnter, fragParam.popExit);
         }
-        fragParam.getFragType().execute(fragParam, ft);
+        fragParam.fragType.execute(fragParam, ft);
     }
 
     /**
@@ -41,13 +41,13 @@ public class FragmentManagerUtil {
      * @param ft        the ft
      */
     static void replace(FragParam fragParam, FragmentTransaction ft) {
-        if (!TextUtils.isEmpty(fragParam.getTag())) {
-            ft.replace(fragParam.getReplaceId(), fragParam.getFragment(), fragParam.getTag());
+        if (!TextUtils.isEmpty(fragParam.tag)) {
+            ft.replace(fragParam.replaceId, fragParam.fragment, fragParam.tag);
         } else {
-            ft.replace(fragParam.getReplaceId(), fragParam.getFragment());
+            ft.replace(fragParam.replaceId, fragParam.fragment);
         }
-        if (fragParam.isBackStack()) {
-            ft.addToBackStack(fragParam.getTag());
+        if (fragParam.isBackStack) {
+            ft.addToBackStack(fragParam.tag);
         }
         ft.commit();
     }
@@ -59,11 +59,11 @@ public class FragmentManagerUtil {
      * @param ft        the ft
      */
     static void pop(FragParam fragParam, FragmentTransaction ft) {
-        if (fragParam.getContext().getFragmentManager().getBackStackEntryCount() > 0) {
-            ft.remove(fragParam.getContext().getFragmentManager()
-                    .findFragmentById(fragParam.getReplaceId()));
+        if (fragParam.context.getFragmentManager().getBackStackEntryCount() > 0) {
+            ft.remove(fragParam.context.getFragmentManager()
+                    .findFragmentById(fragParam.replaceId));
             ft.commit();
-            fragParam.getContext().getFragmentManager().popBackStackImmediate();
+            fragParam.context.getFragmentManager().popBackStackImmediate();
         }
     }
 
@@ -74,11 +74,11 @@ public class FragmentManagerUtil {
      * @param ft        the ft
      */
     static void popTag(FragParam fragParam, FragmentTransaction ft) {
-        if (fragParam.getContext().getFragmentManager().getBackStackEntryCount() > 0) {
-            ft.remove(fragParam.getContext().getFragmentManager()
-                    .findFragmentByTag(fragParam.getTag()));
+        if (fragParam.context.getFragmentManager().getBackStackEntryCount() > 0) {
+            ft.remove(fragParam.context.getFragmentManager()
+                    .findFragmentByTag(fragParam.tag));
             ft.commit();
-            fragParam.getContext().getFragmentManager().popBackStackImmediate();
+            fragParam.context.getFragmentManager().popBackStackImmediate();
         }
     }
 
@@ -90,7 +90,7 @@ public class FragmentManagerUtil {
      */
     static void restart(FragParam fragParam, FragmentTransaction ft) {
         try {
-            Fragment fragment = FragUtil.getFragment(fragParam.getContext(), fragParam.getReplaceId());
+            Fragment fragment = FragUtil.getFragment(fragParam.context, fragParam.replaceId);
             if (fragment != null) {
                 ft.detach(fragment);
                 ft.attach(fragment);
@@ -107,7 +107,7 @@ public class FragmentManagerUtil {
      * @param fragParam the frag param
      */
     static void clear(FragParam fragParam) {
-        fragParam.getContext().getFragmentManager()
+        fragParam.context.getFragmentManager()
                 .popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 

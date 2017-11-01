@@ -23,7 +23,7 @@ public class ActivityManagerUtil {
      * @param activityParam the activity param
      */
     protected static void performTask(ActivityParam activityParam) {
-        ActivityParam.ActivityType activityType = activityParam.getActivityType();
+        ActivityParam.ActivityType activityType = activityParam.activityType;
         switch (activityType) {
             case START:
             case START_FINISH:
@@ -43,48 +43,48 @@ public class ActivityManagerUtil {
     }
 
     private static void start(ActivityParam activityParam) {
-        Intent intent = new Intent(activityParam.getContext(), activityParam.getUri());
-        if (activityParam.getFlag() == 0) {
+        Intent intent = new Intent(activityParam.context, activityParam.uri);
+        if (activityParam.flag == 0) {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK);
         } else {
-            intent.setFlags(activityParam.getFlag());
+            intent.setFlags(activityParam.flag);
         }
-        if (activityParam.getBundle() != null) {
-            intent.putExtras(activityParam.getBundle());
+        if (activityParam.bundle != null) {
+            intent.putExtras(activityParam.bundle);
         }
-        if (activityParam.getActivityOptionsCompat() != null
+        if (activityParam.activityOptionsCompat != null
                 && Build.VERSION.SDK_INT >= 21) {
-            activityParam.getContext().startActivity(intent, activityParam.getActivityOptionsCompat().toBundle());
+            activityParam.context.startActivity(intent, activityParam.activityOptionsCompat.toBundle());
         } else {
-            activityParam.getContext().startActivity(intent);
+            activityParam.context.startActivity(intent);
         }
-        if (activityParam.getActivityType() == ActivityParam.ActivityType.START_FINISH) {
+        if (activityParam.activityType == ActivityParam.ActivityType.START_FINISH) {
             finish(activityParam);
         }
     }
 
     private static void startResult(ActivityParam activityParam) {
-        Intent intent = new Intent(activityParam.getContext(), activityParam.getUri());
-        if (activityParam.getFlag() != 0) {
-            intent.setFlags(activityParam.getFlag());
+        Intent intent = new Intent(activityParam.context, activityParam.uri);
+        if (activityParam.flag != 0) {
+            intent.setFlags(activityParam.flag);
         }
-        if (activityParam.getBundle() != null) {
-            intent.putExtras(activityParam.getBundle());
+        if (activityParam.bundle != null) {
+            intent.putExtras(activityParam.bundle);
         }
-        if (activityParam.getActivityOptionsCompat() != null
+        if (activityParam.activityOptionsCompat != null
                 && Build.VERSION.SDK_INT >= 21) {
-            activityParam.getContext().startActivityForResult(intent, activityParam.getRequestCode(), activityParam.getActivityOptionsCompat().toBundle());
+            activityParam.context.startActivityForResult(intent, activityParam.requestCode, activityParam.activityOptionsCompat.toBundle());
         } else {
-            activityParam.getContext().startActivityForResult(intent, activityParam.getRequestCode());
+            activityParam.context.startActivityForResult(intent, activityParam.requestCode);
         }
-        if (activityParam.getActivityType() == ActivityParam.ActivityType.START_RESULT_FINISH) {
+        if (activityParam.activityType == ActivityParam.ActivityType.START_RESULT_FINISH) {
             finish(activityParam);
         }
     }
 
     private static void finish(ActivityParam activityParam) {
-        activityParam.getContext().finish();
+        activityParam.context.finish();
     }
 
 
