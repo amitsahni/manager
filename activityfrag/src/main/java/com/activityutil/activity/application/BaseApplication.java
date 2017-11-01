@@ -91,7 +91,8 @@ public class BaseApplication extends Application implements Application.Activity
 
     public IntentFilter getFilter() {
         if (filter == null) {
-            filter = new IntentFilter(Constants.getActionBroadcastNetworkChanged());
+            filter = new IntentFilter();
+            filter.addAction(Constants.getActionBroadcastNetworkChanged());
         }
         return filter;
     }

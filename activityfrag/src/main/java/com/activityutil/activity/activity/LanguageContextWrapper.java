@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -22,27 +23,27 @@ public class LanguageContextWrapper extends ContextWrapper {
         super(base);
     }
 
-    @SuppressWarnings("deprecation")
     static ContextWrapper wrap(Context context, String language) {
         return wrap(context, language, false);
     }
 
-    @SuppressWarnings("deprecation")
     public static ContextWrapper wrap(Context context, String language, boolean isBroadCast) {
-        Configuration config = context.getResources().getConfiguration();
         if (!language.equals("")) {
             Locale locale = new Locale(language);
             Locale.setDefault(locale);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                setSystemLocale(config, locale);
+                Configuration configuration = context.getResources().getConfiguration();
+                configuration.setLocale(locale);
+                configuration.setLayoutDirection(locale);
+                context.createConfigurationContext(configuration);
             } else {
-                setSystemLocaleLegacy(config, locale);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                config.setLayoutDirection(locale);
-                context = context.createConfigurationContext(config);
-            } else {
-                context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+                Resources resources = context.getResources();
+                Configuration configuration = context.getResources().getConfiguration();
+                configuration.locale = locale;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    configuration.setLayoutDirection(locale);
+                }
+                resources.updateConfiguration(configuration, resources.getDisplayMetrics());
             }
             if (isBroadCast)
                 LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.getActionBroadcastLanguageChanged()));

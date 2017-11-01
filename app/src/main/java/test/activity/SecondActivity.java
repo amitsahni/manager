@@ -20,12 +20,16 @@ public class SecondActivity extends BaseAppCompatActivity {
     @BindView(R.id.button)
     Button getBtn;
 
+    @BindView(R.id.button1)
+    Button chnageLanguage;
+
 
     @Override
     protected void initUI() {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getBtn.setOnClickListener(this);
+        chnageLanguage.setOnClickListener(this);
         Log.i(getLocalClassName(),"Default Language =" + Locale.getDefault().getLanguage());
     }
 
@@ -36,6 +40,10 @@ public class SecondActivity extends BaseAppCompatActivity {
 //            ActivityManager.with(this, ActivityParam.ActivityType.FINISH)
 //                    .build();
             LanguageContextWrapper.wrap(this, "ar", true);
+        } if (id == R.id.button1) {
+//            ActivityManager.with(this, ActivityParam.ActivityType.FINISH)
+//                    .build();
+            LanguageContextWrapper.wrap(this, "en", true);
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }
