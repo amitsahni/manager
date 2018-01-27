@@ -1,4 +1,4 @@
-package com.activityutil.activity.activity;
+package com.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;

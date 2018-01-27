@@ -1,4 +1,4 @@
-package com.activityutil.activity.application;
+package com.activity.application;
 
 import android.app.Activity;
 import android.app.Application;
@@ -12,10 +12,10 @@ import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.activityutil.activity.activity.ActivityManagerUtil;
-import com.activityutil.activity.Constants;
-import com.activityutil.activity.broadcast.InternetBroadCastReceiver;
-import com.activityutil.activity.broadcast.NetworkBroadCastReceiver;
+import com.activity.ActivityManagerUtil;
+import com.activity.Constants;
+import com.activity.broadcast.InternetBroadCastReceiver;
+import com.activity.broadcast.NetworkBroadCastReceiver;
 
 
 /**

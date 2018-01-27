@@ -1,1 +1,1 @@
-include ':activityfrag',":app"
+include ':activityfrag',":app",":activity",":fragment"

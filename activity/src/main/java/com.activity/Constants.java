@@ -1,4 +1,4 @@
-package com.activityutil.activity;
+package com.activity;
 
 /**
  * Created by clickapps on 1/8/17.

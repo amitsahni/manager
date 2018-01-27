@@ -1,4 +1,4 @@
-package com.activityutil.activity.broadcast;
+package com.activity.broadcast;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

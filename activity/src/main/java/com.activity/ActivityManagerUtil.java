@@ -1,10 +1,9 @@
-package com.activityutil.activity.activity;
+package com.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 
 
 /**

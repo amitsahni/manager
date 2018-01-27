@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.activityutil.activity.activity.BaseAppCompatActivity;
-import com.activityutil.activity.application.BaseApplication;
-import com.activityutil.activity.broadcast.InternetBroadCastReceiver;
+import com.activity.application.BaseApplication;
+import com.activity.broadcast.InternetBroadCastReceiver;
 import com.activityutil.activity.interfaces.ConnectivityListener;
 import com.activityutil.activity.interfaces.OnBackHandler;
 

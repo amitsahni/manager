@@ -1,9 +1,7 @@
 package com.activityutil.activity.di;
 
 import android.app.Fragment;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
 
 import com.activityutil.activity.activity.ActivityParam;
 import com.activityutil.activity.fragment.FragParam;

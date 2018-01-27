@@ -1,4 +1,4 @@
-package com.activityutil.activity.activity;
+package com.activity;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;

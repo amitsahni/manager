@@ -1,4 +1,4 @@
-package com.activityutil.activity.activity;
+package com.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +8,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.activityutil.activity.Constants;
-import com.activityutil.activity.application.BaseApplication;
-import com.activityutil.activity.broadcast.InternetBroadCastReceiver;
-import com.activityutil.activity.broadcast.LanguageBroadCastReceiver;
-import com.activityutil.activity.fragment.BaseFragment;
-import com.activityutil.activity.interfaces.ConnectivityListener;
-import com.activityutil.activity.interfaces.OnBackHandler;
+import com.activity.application.BaseApplication;
+import com.activity.broadcast.InternetBroadCastReceiver;
+import com.activity.broadcast.LanguageBroadCastReceiver;
 
 import java.util.Locale;
 
