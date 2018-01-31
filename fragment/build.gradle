@@ -23,9 +23,7 @@ android {
 }
 
 dependencies {
-    compile deps.appcomat
-    compile deps.multidex
-    compile project (":base")
+    compile project(":base")
 }
 // build a jar with source files
 task sourcesJar(type: Jar) {

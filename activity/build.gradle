@@ -21,7 +21,6 @@ android {
 }
 
 dependencies {
-    compile deps.appcomat
     compile project(":base")
 }
 // build a jar with source files
