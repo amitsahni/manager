@@ -23,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation deps.appcomat
+    compile deps.appcomat
     compile deps.multidex
 }
