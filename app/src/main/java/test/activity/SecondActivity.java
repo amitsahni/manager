@@ -4,8 +4,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.activityutil.activity.activity.BaseAppCompatActivity;
-import com.activityutil.activity.activity.LanguageContextWrapper;
+import com.activity.ActivityManager;
+import com.activity.BaseAppCompatActivity;
+import com.activity.LanguageContextWrapper;
 
 import java.util.Locale;
 
@@ -30,20 +31,19 @@ public class SecondActivity extends BaseAppCompatActivity {
         ButterKnife.bind(this);
         getBtn.setOnClickListener(this);
         chnageLanguage.setOnClickListener(this);
-        Log.i(getLocalClassName(),"Default Language =" + Locale.getDefault().getLanguage());
+        Log.i(getLocalClassName(), "Default Language =" + Locale.getDefault().getLanguage());
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button) {
-//            ActivityManager.with(this, ActivityParam.ActivityType.FINISH)
-//                    .build();
             LanguageContextWrapper.wrap(this, "ar", true);
-        } if (id == R.id.button1) {
-//            ActivityManager.with(this, ActivityParam.ActivityType.FINISH)
-//                    .build();
+        }
+        if (id == R.id.button1) {
             LanguageContextWrapper.wrap(this, "en", true);
+            ActivityManager.with(getApplicationContext())
+                    .finish();
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }

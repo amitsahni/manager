@@ -1,120 +1,44 @@
 package com.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-
-import com.fragment.di.IFragmentProperties;
 
 /**
  * Created by clickapps on 1/11/17.
  */
 
-public class Builder implements IFragmentProperties {
-    private FragParam mFragParam;
+public class Builder {
+    private FragParam param;
 
-    /**
-     * Instantiates a new Builder.
-     *
-     * @param context   the context
-     * @param replaceId the replace id
-     */
-    public Builder(@NonNull FragmentActivity context, @IdRes int replaceId) {
-        mFragParam = new FragParam();
-        mFragParam.context = context;
-        mFragParam.replaceId = replaceId;
+    public Builder(@NonNull Context context) {
+        param = new FragParam();
+        param.context = context;
     }
 
-    /**
-     * Fragment builder.
-     *
-     * @param fragment the fragment
-     * @return the builder
-     */
-    @Override
-    public Builder fragment(@NonNull Fragment fragment) {
-        mFragParam.fragment = fragment;
-        return this;
+    public Request.Replace replace(@IdRes int replaceId) {
+        param.replaceId = replaceId;
+        return new Request.Replace(param);
     }
 
-    /**
-     * Tag builder.
-     *
-     * @param tag the tag
-     * @return the builder
-     */
-    @Override
-    public Builder tag(@NonNull String tag) {
-        mFragParam.tag = tag;
-        return this;
+    public Request.Pop pop(@IdRes int replaceId) {
+        param.replaceId = replaceId;
+        return new Request.Pop(param);
     }
 
-    /**
-     * Enable animation builder.
-     *
-     * @param enableAnimation the enable animation
-     * @return the builder
-     */
-    @Override
-    public Builder enableAnimation(boolean enableAnimation) {
-        mFragParam.enableAnimation = enableAnimation;
-        return this;
+    public Request.PopTag pop(String tag) {
+        param.tag = tag;
+        return new Request.PopTag(param);
     }
 
-    /**
-     * Type builder.
-     *
-     * @param fragType the frag type
-     * @return the builder
-     */
-    @Override
-    public Builder type(@NonNull FragParam.FragType fragType) {
-        mFragParam.fragType = fragType;
-        return this;
+    public Request.Restart restart(@NonNull Fragment fragment) {
+        param.fragment = fragment;
+        return new Request.Restart(param);
     }
 
-    /**
-     * Back stack builder.
-     *
-     * @param isBackStack the is back stack
-     * @return the builder
-     */
-    @Override
-    public Builder backStack(boolean isBackStack) {
-        mFragParam.isBackStack = isBackStack;
-        return this;
+    public Request.FragUtil utils() {
+        return new Request.FragUtil(param);
     }
 
-    /**
-     * Animation builder.
-     *
-     * @param enter    the enter
-     * @param exit     the exit
-     * @param popEnter the pop enter
-     * @param popExit  the pop exit
-     * @return the builder
-     */
-    @Override
-    public Builder animation(int enter, int exit, int popEnter, int popExit) {
-        mFragParam.enter = enter;
-        mFragParam.exit = exit;
-        mFragParam.popEnter = popEnter;
-        mFragParam.popExit = popExit;
-        return this;
-    }
-
-
-    /**
-     * Build.
-     */
-    @Override
-    public void build() {
-        if (mFragParam.context == null) {
-            Log.e(getClass().getSimpleName(), "Context is null");
-            return;
-        }
-        FragmentManagerUtil.performTask(mFragParam);
-    }
 }

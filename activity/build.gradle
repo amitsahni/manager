@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-group = 'com.github.amitclickapps'
-version = '1.0.2'
 
 android {
     compileSdkVersion 27
@@ -24,7 +22,7 @@ android {
 
 dependencies {
     compile deps.appcomat
-    compile project (":base")
+    compile project(":base")
 }
 // build a jar with source files
 task sourcesJar(type: Jar) {

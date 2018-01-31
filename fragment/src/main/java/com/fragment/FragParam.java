@@ -2,6 +2,7 @@ package com.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
 
@@ -13,7 +14,7 @@ public class FragParam {
     /**
      * The Context.
      */
-    FragmentActivity context;
+    Context context;
     /**
      * The Replace id.
      */

@@ -9,18 +9,9 @@ import com.fragment.FragParam;
  * Created by clickapps on 1/11/17.
  */
 
-public interface IFragmentProperties {
+public interface IFragmentProperties<T> {
 
-    IFragmentProperties fragment(@NonNull Fragment fragment);
+    T enableAnimation(boolean enableAnimation);
 
-    IFragmentProperties tag(@NonNull String tag) ;
-
-    IFragmentProperties  enableAnimation(boolean enableAnimation);
-
-    IFragmentProperties type(@NonNull FragParam.FragType fragType);
-
-    IFragmentProperties backStack(boolean isBackStack);
-
-    IFragmentProperties animation(int enter, int exit, int popEnter, int popExit);
-    void build();
+    T animation(int enter, int exit, int popEnter, int popExit);
 }

@@ -9,11 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.activityutil.activity.activity.BaseAppCompatActivity;
-import com.activity.application.BaseApplication;
-import com.activity.broadcast.InternetBroadCastReceiver;
-import com.activity.interfaces.ConnectivityListener;
-import com.activity.interfaces.OnBackHandler;
+import com.base.application.BaseApplication;
+import com.base.broadcast.InternetBroadCastReceiver;
+import com.base.interfaces.ConnectivityListener;
+import com.base.interfaces.OnBackHandler;
 
 
 /**
@@ -57,7 +56,6 @@ public abstract class BaseFragment extends Fragment implements
             bundle = new Bundle();
         }
         return bundle;
-
     }
 
     public FragmentActivity getFragmentActivity() {
@@ -93,16 +91,12 @@ public abstract class BaseFragment extends Fragment implements
 
     @Override
     public void onResume() {
-        /**
-         * Handle BackPress on Fragment.
-         */
-        if (getActivity() instanceof BaseAppCompatActivity) {
-            ((BaseAppCompatActivity) getActivity()).setBackHandler(mEnableBack ? this : null);
-            ((BaseAppCompatActivity) getActivity()).setOnActivityResultFragment(mEnableOnActivityResult ? this : null);
-        }
-        if (getActivity().getApplication() instanceof BaseApplication) {
+        BaseApplication baseApplication = (BaseApplication) getActivity().getApplication();
+        if (baseApplication != null) {
+            baseApplication.setOnActivityResultFragment(mEnableOnActivityResult ? this : null);
+            baseApplication.setBackHandler(mEnableBack ? this : null);
             InternetBroadCastReceiver internetBroadCastReceiver
-                    = ((BaseApplication) getActivity().getApplication()).getInternetBroadCastReceiver();
+                    = baseApplication.getInternetBroadCastReceiver();
             internetBroadCastReceiver.addCallback(this);
         }
         super.onResume();

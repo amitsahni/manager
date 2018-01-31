@@ -1,13 +1,2 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest package="com.activityutil" />
 
-    package="com.activityutil">
-
-    <application>
-        <receiver android:name="com.activity.broadcast.NetworkBroadCastReceiver">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-        </receiver>
-    </application>
-
-</manifest>
