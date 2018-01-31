@@ -1,10 +1,11 @@
-package com.activityutil.activity.di;
+package com.activity.di;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 
-import com.activityutil.activity.activity.ActivityParam;
+import com.activity.ActivityParam;
+
 
 /**
  * Created by clickapps on 1/11/17.

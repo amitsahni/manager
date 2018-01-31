@@ -1,4 +1,4 @@
-package com.activityutil.activity.interfaces;
+package com.activity.interfaces;
 
 
 /**

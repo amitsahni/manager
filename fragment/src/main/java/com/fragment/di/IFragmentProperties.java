@@ -1,10 +1,9 @@
-package com.activityutil.activity.di;
+package com.fragment.di;
 
 import android.app.Fragment;
 import android.support.annotation.NonNull;
 
-import com.activityutil.activity.activity.ActivityParam;
-import com.activityutil.activity.fragment.FragParam;
+import com.fragment.FragParam;
 
 /**
  * Created by clickapps on 1/11/17.

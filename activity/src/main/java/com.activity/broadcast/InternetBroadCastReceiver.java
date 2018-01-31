@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.activityutil.activity.Utils;
-import com.activityutil.activity.interfaces.ConnectivityListener;
+import com.activity.interfaces.ConnectivityListener;
 
 /**
  * Created by amit on 20/2/17.

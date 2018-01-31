@@ -1,4 +1,4 @@
-package com.activityutil.activity.fragment;
+package com.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;

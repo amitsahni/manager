@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
 
-import com.activityutil.activity.di.IActivityProperties;
+import com.fragment.di.IActivityProperties;
 
 /**
  * Created by clickapps on 1/11/17.

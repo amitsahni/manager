@@ -1,4 +1,4 @@
-package com.activityutil.activity.fragment;
+package com.fragment;
 
 import android.app.Fragment;
 import android.support.annotation.IdRes;
@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.activityutil.activity.di.IFragmentProperties;
+import com.fragment.di.IFragmentProperties;
 
 /**
  * Created by clickapps on 1/11/17.

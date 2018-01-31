@@ -1,4 +1,4 @@
-package com.activityutil.activity.fragment;
+package com.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.activityutil.activity.activity.BaseAppCompatActivity;
 import com.activity.application.BaseApplication;
 import com.activity.broadcast.InternetBroadCastReceiver;
-import com.activityutil.activity.interfaces.ConnectivityListener;
-import com.activityutil.activity.interfaces.OnBackHandler;
+import com.activity.interfaces.ConnectivityListener;
+import com.activity.interfaces.OnBackHandler;
 
 
 /**
