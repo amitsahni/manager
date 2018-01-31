@@ -45,7 +45,7 @@ public class Builder {
         return new Request.StartActivityFinishResult(param);
     }
 
-    public Request.Finish finish() {
-        return new Request.Finish(param);
+    public void finish() {
+        new Request.Finish(param).build();
     }
 }
