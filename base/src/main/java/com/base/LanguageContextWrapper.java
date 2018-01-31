@@ -1,4 +1,4 @@
-package com.activity;
+package com.base;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,8 +8,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
-
-import com.base.Constants;
 
 import java.util.Locale;
 
@@ -23,7 +21,7 @@ public class LanguageContextWrapper extends ContextWrapper {
         super(base);
     }
 
-    static ContextWrapper wrap(Context context, String language) {
+    public static ContextWrapper wrap(Context context, String language) {
         return wrap(context, language, false);
     }
 

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.base.Constants;
+import com.base.LanguageContextWrapper;
 import com.base.application.BaseApplication;
 import com.base.broadcast.InternetBroadCastReceiver;
 import com.base.broadcast.LanguageBroadCastReceiver;
