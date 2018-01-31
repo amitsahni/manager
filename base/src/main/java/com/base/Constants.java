@@ -1,4 +1,6 @@
-package com.activity;
+package com.base;
+
+import android.app.Activity;
 
 /**
  * Created by clickapps on 1/8/17.
@@ -25,5 +27,15 @@ public class Constants {
 
     public static void setPackageName(String packageName) {
         PACKAGE_NAME = packageName;
+    }
+
+    private static Activity sCurrentActivity;
+
+    public static void setTopActivity(Activity sCurrentActivity) {
+        Constants.sCurrentActivity = sCurrentActivity;
+    }
+
+    public static Activity getTopActivity() {
+        return sCurrentActivity;
     }
 }

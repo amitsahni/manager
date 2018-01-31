@@ -1,125 +1,51 @@
 package com.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.util.Log;
 
-import com.fragment.di.IActivityProperties;
 
 /**
  * Created by clickapps on 1/11/17.
  */
 
-public class Builder implements IActivityProperties {
+public class Builder {
 
-    private ActivityParam activityParam;
+    private ActivityParam param;
 
     /**
      * Instantiates a new Builder.
      *
      * @param context the context
      */
-    public Builder(@NonNull Activity context) {
-        activityParam = new ActivityParam();
-        activityParam.context = context;
-    }
-
-    /**
-     * Instantiates a new Builder.
-     *
-     * @param context      the context
-     * @param activityType the activity type
-     */
-    public Builder(@NonNull Activity context, ActivityParam.ActivityType activityType) {
-        activityParam = new ActivityParam();
-        activityParam.context = context;
-        activityParam.activityType = activityType;
-    }
-
-    /**
-     * Bundle builder.
-     *
-     * @param bundle the bundle
-     * @return the builder
-     */
-    @Override
-    public Builder bundle(Bundle bundle) {
-        activityParam.bundle = bundle;
-        return this;
-    }
-
-    /**
-     * Klass builder.
-     *
-     * @param uri the uri
-     * @return the builder
-     */
-    @Override
-    public Builder klass(Class<?> uri) {
-        activityParam.uri = uri;
-        return this;
-    }
-
-    /**
-     * Activity type builder.
-     *
-     * @param activityType the activity type
-     * @return the builder
-     */
-    @Override
-    public Builder activityType(@NonNull ActivityParam.ActivityType activityType) {
-        activityParam.activityType = activityType;
-        return this;
-    }
-
-    /**
-     * Request code builder.
-     *
-     * @param requestCode the request code
-     * @return the builder
-     */
-    @Override
-    public Builder requestCode(int requestCode) {
-        activityParam.requestCode = requestCode;
-        return this;
+    public Builder(@NonNull Context context) {
+        param = new ActivityParam();
+        param.context = context;
     }
 
 
-    /**
-     * Flag builder.
-     *
-     * @param flag the flag
-     * @return the builder
-     */
-    @Override
-    public Builder flag(int flag) {
-        activityParam.flag = flag;
-        return this;
+    public Request.StartActivity startActivity(Class<?> klass) {
+        param.uri = klass;
+        return new Request.StartActivity(param);
     }
 
-    /**
-     * Activity compact option builder.
-     *
-     * @param activityOptionsCompat the activity options compat
-     * @return the builder
-     */
-    @Override
-    public Builder activityCompactOption(ActivityOptionsCompat activityOptionsCompat) {
-        activityParam.activityOptionsCompat = activityOptionsCompat;
-        return this;
+    public Request.StartActivityFinish startActivityFinish(Class<?> klass) {
+        param.uri = klass;
+        return new Request.StartActivityFinish(param);
     }
 
-    /**
-     * Build.
-     */
-    @Override
-    public void build() {
-        if (activityParam.context == null) {
-            Log.e(getClass().getSimpleName(), "Context is null");
-            return;
-        }
-        ActivityManagerUtil.performTask(activityParam);
+    public Request.StartActivityResult startActivityForResult(Class<?> klass, int requestCode) {
+        param.requestCode = requestCode;
+        param.uri = klass;
+        return new Request.StartActivityResult(param);
+    }
+
+    public Request.StartActivityFinishResult startActivityForResultFinish(Class<?> klass, int requestCode) {
+        param.requestCode = requestCode;
+        param.uri = klass;
+        return new Request.StartActivityFinishResult(param);
+    }
+
+    public Request.Finish finish() {
+        return new Request.Finish(param);
     }
 }

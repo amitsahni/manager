@@ -9,7 +9,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.activityutil.activity.Constants;
+import com.base.Constants;
 
 import java.util.Locale;
 

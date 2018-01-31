@@ -1,4 +1,4 @@
-package com.activity.interfaces;
+package com.base.interfaces;
 
 /**
  * Created by amit on 15/2/17.

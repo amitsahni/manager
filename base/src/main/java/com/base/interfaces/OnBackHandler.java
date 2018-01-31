@@ -1,4 +1,4 @@
-package com.activity.interfaces;
+package com.base.interfaces;
 
 
 /**

@@ -1,7 +1,8 @@
-package com.activity.application;
+package com.base.application;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -12,10 +13,10 @@ import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.activity.ActivityManagerUtil;
-import com.activity.Constants;
-import com.activity.broadcast.InternetBroadCastReceiver;
-import com.activity.broadcast.NetworkBroadCastReceiver;
+import com.base.Constants;
+import com.base.broadcast.InternetBroadCastReceiver;
+import com.base.broadcast.NetworkBroadCastReceiver;
+import com.base.interfaces.OnBackHandler;
 
 
 /**
@@ -25,6 +26,8 @@ import com.activity.broadcast.NetworkBroadCastReceiver;
 public class BaseApplication extends Application implements Application.ActivityLifecycleCallbacks {
     private InternetBroadCastReceiver internetBroadCastReceiver;
     private IntentFilter filter = null;
+    private OnBackHandler mBackHandler;
+    private Fragment mFragment = null;
 
     @Override
     public void onCreate() {
@@ -35,6 +38,38 @@ public class BaseApplication extends Application implements Application.Activity
                     new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         }
         internetBroadCastReceiver = new InternetBroadCastReceiver();
+    }
+
+    /**
+     * Sets back handler.
+     *
+     * @param mBackHandler the back handler
+     */
+    public void setBackHandler(OnBackHandler mBackHandler) {
+        this.mBackHandler = mBackHandler;
+    }
+
+    /**
+     * Sets mFragment when called another activity or application eg camera or gallery
+     * After completed operation set this to null.
+     *
+     * @param fragment the mFragment
+     */
+    public void setOnActivityResultFragment(Fragment fragment) {
+        this.mFragment = fragment;
+    }
+
+    public Fragment getFragment() {
+        return mFragment;
+    }
+
+    /**
+     * Gets back handler.
+     *
+     * @return the back handler
+     */
+    public OnBackHandler getBackHandler() {
+        return mBackHandler;
     }
 
     @Override
@@ -49,7 +84,7 @@ public class BaseApplication extends Application implements Application.Activity
 
     @Override
     public void onActivityResumed(Activity activity) {
-        ActivityManagerUtil.setTopActivity(activity);
+        Constants.setTopActivity(activity);
         LocalBroadcastManager.getInstance(activity).registerReceiver(internetBroadCastReceiver, getFilter());
     }
 

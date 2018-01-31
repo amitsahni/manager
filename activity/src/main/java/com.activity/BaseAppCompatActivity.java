@@ -8,9 +8,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.activity.application.BaseApplication;
-import com.activity.broadcast.InternetBroadCastReceiver;
-import com.activity.broadcast.LanguageBroadCastReceiver;
+import com.base.Constants;
+import com.base.application.BaseApplication;
+import com.base.broadcast.InternetBroadCastReceiver;
+import com.base.broadcast.LanguageBroadCastReceiver;
+import com.base.interfaces.ConnectivityListener;
 
 import java.util.Locale;
 
@@ -29,20 +31,9 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
      * The Tag.
      */
     protected String TAG;
-    private OnBackHandler mBackHandler;
-    private BaseFragment mFragment = null;
-
     private LanguageBroadCastReceiver languageBroadCastReceiver;
     private IntentFilter filter = new IntentFilter(Constants.getActionBroadcastLanguageChanged());
 
-//
-
-    /**
-     * Instantiates a new Base activity app compat.
-     */
-    protected BaseAppCompatActivity() {
-        mBackHandler = null;
-    }
 
     /**
      * This method is used to initialize UI of the layout. Called in onCreate()
@@ -92,41 +83,15 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
 
     }
 
-    /**
-     * Sets back handler.
-     *
-     * @param mBackHandler the back handler
-     */
-    public void setBackHandler(OnBackHandler mBackHandler) {
-        this.mBackHandler = mBackHandler;
-    }
-
-    /**
-     * Gets back handler.
-     *
-     * @return the back handler
-     */
-    public OnBackHandler getBackHandler() {
-        return mBackHandler;
-    }
 
     @Override
     public void onBackPressed() {
-        if (getBackHandler() != null) {
-            getBackHandler().onBackPressed();
+        if (getApplication() instanceof BaseApplication
+                && ((BaseApplication) getApplication()).getBackHandler() != null) {
+            ((BaseApplication) getApplication()).getBackHandler().onBackPressed();
         } else {
             super.onBackPressed();
         }
-    }
-
-    /**
-     * Sets mFragment when called another activity or application eg camera or gallery
-     * After completed operation set this to null.
-     *
-     * @param fragment the mFragment
-     */
-    public void setOnActivityResultFragment(BaseFragment fragment) {
-        this.mFragment = fragment;
     }
 
     @Override
@@ -137,9 +102,10 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (mFragment != null) {
-            mFragment.onActivityResult(requestCode, resultCode, data);
+        if (getApplication() instanceof BaseApplication) {
+            if (((BaseApplication) getApplication()).getFragment() != null) {
+                ((BaseApplication) getApplication()).getFragment().onActivityResult(requestCode, resultCode, data);
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);

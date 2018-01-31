@@ -1,6 +1,6 @@
 package com.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 
@@ -10,7 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
  */
 public class ActivityParam {
 
-    Activity context;
+    Context context;
     Class<?> uri;
     int requestCode = 0;
     int flag = 0;

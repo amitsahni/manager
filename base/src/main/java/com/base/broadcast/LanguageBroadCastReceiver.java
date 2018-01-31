@@ -1,4 +1,4 @@
-package com.activity.broadcast;
+package com.base.broadcast;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.activityutil.activity.activity.BaseAppCompatActivity;
+
 
 /**
  * Created by clickapps on 24/2/16.
@@ -28,10 +28,11 @@ public class LanguageBroadCastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (mActivity instanceof BaseAppCompatActivity) {
-            BaseAppCompatActivity activity = (BaseAppCompatActivity) mActivity;
-            activity.recreate();
-        }
+//        if (mActivity instanceof BaseAppCompatActivity) {
+//            BaseAppCompatActivity activity = (BaseAppCompatActivity) mActivity;
+//            activity.recreate();
+//        }
+        mActivity.recreate();
     }
 
 }

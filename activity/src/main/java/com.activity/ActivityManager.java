@@ -1,6 +1,6 @@
 package com.activity;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 
@@ -35,22 +35,9 @@ public class ActivityManager {
      *
      * @param context The activity to use.
      * @return A builder that can be used to pass values
-     * @see #with(Activity, ActivityParam.ActivityType) #with(android.app.Activity, ActivityParam.ActivityType)#with(android.app.Activity, ActivityParam.ActivityType)
      */
-    public static Builder with(@NonNull Activity context) {
+    public static Builder with(@NonNull Context context) {
         return new Builder(context);
-    }
-
-    /**
-     * Use Activity manager
-     *
-     * @param context      The activity to use.
-     * @param activityType the activity type
-     * @return A builder that can be used to pass values
-     * @see #with(Activity) #with(android.app.Activity)#with(android.app.Activity)
-     */
-    public static Builder with(@NonNull Activity context, ActivityParam.ActivityType activityType) {
-        return new Builder(context, activityType);
     }
 
 
