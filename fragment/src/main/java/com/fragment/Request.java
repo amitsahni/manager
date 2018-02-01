@@ -8,7 +8,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.base.Constants;
+import com.common.Constants;
 import com.fragment.di.IFragmentProperties;
 
 import java.util.ArrayList;

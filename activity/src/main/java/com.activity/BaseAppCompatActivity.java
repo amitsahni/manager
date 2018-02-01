@@ -8,12 +8,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.base.Constants;
-import com.base.LanguageContextWrapper;
-import com.base.application.BaseApplication;
-import com.base.broadcast.InternetBroadCastReceiver;
-import com.base.broadcast.LanguageBroadCastReceiver;
-import com.base.interfaces.ConnectivityListener;
+
+import com.common.Constants;
+import com.common.LanguageContextWrapper;
+import com.common.application.BaseApplication;
+import com.common.broadcast.InternetBroadCastReceiver;
+import com.common.broadcast.LanguageBroadCastReceiver;
+import com.common.interfaces.ConnectivityListener;
 
 import java.util.Locale;
 

@@ -8,7 +8,7 @@ import android.support.annotation.MainThread;
 import android.support.v4.app.ActivityOptionsCompat;
 
 import com.activity.di.IActivityProperties;
-import com.base.Constants;
+import com.common.Constants;
 
 /**
  * Created by clickapps on 31/1/18.

@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import com.activity.ActivityManager;
 import com.activity.BaseAppCompatActivity;
-import com.base.LanguageContextWrapper;
+import com.common.LanguageContextWrapper;
 
 import java.util.Locale;
 

@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.base.application.BaseApplication;
-import com.base.broadcast.InternetBroadCastReceiver;
-import com.base.interfaces.ConnectivityListener;
-import com.base.interfaces.OnBackHandler;
+import com.common.application.BaseApplication;
+import com.common.broadcast.InternetBroadCastReceiver;
+import com.common.interfaces.ConnectivityListener;
+import com.common.interfaces.OnBackHandler;
 
 
 /**
