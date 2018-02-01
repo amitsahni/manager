@@ -18,7 +18,6 @@ android {
     }
 
 }
-
 dependencies {
     compile deps.appcomat
     compile deps.multidex
