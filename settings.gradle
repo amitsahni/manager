@@ -1,1 +1,1 @@
-include ":app",":activity",":fragment",":base"
+include ":app",":activity",":fragment",":common"

@@ -17,7 +17,7 @@ android {
 }
 
 dependencies {
-    compile project(":base")
+    compile project(":common")
 }
 // build a jar with source files
 task sourcesJar(type: Jar) {
