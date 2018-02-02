@@ -29,20 +29,19 @@ public class LanguageContextWrapper extends ContextWrapper {
         if (!language.equals("")) {
             Locale locale = new Locale(language);
             Locale.setDefault(locale);
+            Resources resources = context.getResources();
+            Configuration configuration = resources.getConfiguration();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Configuration configuration = context.getResources().getConfiguration();
                 configuration.setLocale(locale);
                 configuration.setLayoutDirection(locale);
                 context.createConfigurationContext(configuration);
             } else {
-                Resources resources = context.getResources();
-                Configuration configuration = context.getResources().getConfiguration();
                 configuration.locale = locale;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     configuration.setLayoutDirection(locale);
                 }
-                resources.updateConfiguration(configuration, resources.getDisplayMetrics());
             }
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
             if (isBroadCast)
                 LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.getActionBroadcastLanguageChanged()));
         }
