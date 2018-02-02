@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.activity.ActivityManager;
 import com.activity.BaseAppCompatActivity;
+import com.fragment.FragmentManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,8 +33,11 @@ public class MainActivity extends BaseAppCompatActivity {
         if (id == R.id.button) {
             ActivityManager.with(getApplicationContext())
                     .startActivity(SecondActivity.class)
-                    .sharedElements(new View[]{getBtn})
                     .build();
+            FragmentManager.with(this)
+                    .utils()
+                    .getTopFragmentByTag();
+
 
         } else {
             Log.i(getLocalClassName(), "No clickHandled");

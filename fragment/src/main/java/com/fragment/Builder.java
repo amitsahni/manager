@@ -17,8 +17,9 @@ public class Builder {
         param.context = context;
     }
 
-    public Request.Replace replace(@IdRes int replaceId) {
+    public Request.Replace replace(@IdRes int replaceId, @NonNull Fragment fragment) {
         param.replaceId = replaceId;
+        param.fragment = fragment;
         return new Request.Replace(param);
     }
 

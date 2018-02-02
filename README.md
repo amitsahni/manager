@@ -1,43 +1,98 @@
 
-ActivityFragUtil ![](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
------------------------
+# Version - 1.0.1-alpha
+----
+##### Really Important
+##### BaseApplication need to extent or directly put in your app manifest
 
-#### Start Activity
+### Start Activity
+```
+ActivityManager.with(getApplicationContext())
+                    .startActivity(SecondActivity.class)
+                    .build();
+                    
+                    
+```
+### Start Activity Finish
+```
+ActivityManager.with(getApplicationContext())
+                    .startActivityFinish(SecondActivity.class)
+                    .build();
+                    
+```
+### Start Activity For Result
+```                    
+ActivityManager.with(getApplicationContext())
+                    .startActivityForResult(SecondActivity.class,requestCode)
+                    .build();
+```
+### Start Activity For Result Finish
+```                                        
+ActivityManager.with(getApplicationContext())
+                    .startActivityForResultFinish(SecondActivity.class,requestCode)
+                    .build();                                        
+```   
+### Finish
+```                                        
+ActivityManager.with(getApplicationContext())
+                    .finish()
+                    .build();                                        
+```                   
+                    
+Optional 
+``` 
+   .activityCompactOption(activityCompactOption)
+   .sharedElements(new View[]{getBtn})
+   .animation(enter,exit)
+   .bundle(bundle)
+```
+`compile 'com.github.amitsahni.manager:activity:1.0.1-alpha'`
 
+
+#### Fragment Replace
 ```
-ActivityManager.with(SampleActivity.this, ActivityParam.ActivityType.START)
-                        .klass(SampleActivity.class)
-                        .activityCompactOption(activityCompatOption)
-                        .bundle(bundle)
-                        .flag(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .build();
+FragmentManager.with(this)
+               .replace(R.id.replace,fragment)
+               .build();
 ```
-#### Start Activity for Result
+#### Fragment pop
 ```
-ActivityManager.with(SampleActivity.this, ActivityParam.ActivityType.START_RESULT)
-                        .klass(SampleActivity.class)
-                        .activityCompactOption(activityCompatOption)
-                        .bundle(bundle)
-                        .requestCode(100)
-                        .build();
+FragmentManager.with(this)
+               .pop(tag)
+               .build();
+FragmentManager.with(this)
+               .pop(id)
+               .build();               
 ```
-#### Finish 
+#### Fragment restart
 ```
- ActivityManager.with(SampleActivity.this, ActivityParam.ActivityType.FINISH)
-                        .build();
+FragmentManager.with(this)
+               .restart(fragment)
+               .build();
 ```
 
-#### Fragment 
+#### Fragment Utils
 ```
-FragmentManager.with(this,R.id.replaceId)
-                        .animation(enter,exit,popEnter,popExit)
-                        .backStack(true)
-                        .enableAnimation(true)
-                        .fragment(fragToOpen)
-                        .tag(FragmentTag)
-                        .type(FragParam.FragType.REPLACE)
-                        .build();
+FragmentManager.with(this)
+               .utils()
+               .getFragment(id);
+               
+FragmentManager.with(this)
+               .utils()
+               .getFragment(tag); 
+                     
+FragmentManager.with(this)
+               .utils()
+               .getStackList();   
+               
+FragmentManager.with(this)
+               .utils()
+               .getTopFragmentById(); 
+FragmentManager.with(this)
+               .utils()
+               .getTopFragmentByTag();                                                  
 ```
+`compile 'com.github.amitsahni.manager:fragment:1.0.1-alpha'`
+
 #### Extend `BaseAppCompatActivity`
 ##### If Connectivity Changes automatic notified under `OnConnectivityChanges` but for this need to add `BaseApplication` in your manifest
 
@@ -73,19 +128,10 @@ Download
 --------
 Add the JitPack repository to your root build.gradle:
 
-
-![](https://jitpack.io/v/amitclickapps/activity-frag-util.svg?style=flat-square)
-
 ```groovy
 	allprojects {
 		repositories {
 			maven { url "https://jitpack.io" }
 		}
-	}
-```
-Add the Gradle dependency:
-```groovy
-	dependencies {
-		compile 'com.github.amitclickapps:image-util:latest'
 	}
 ```

@@ -28,11 +28,6 @@ public class Request {
             this.param = param;
         }
 
-        public T fragment(@NonNull Fragment fragment) {
-            param.fragment = fragment;
-            return (T) this;
-        }
-
         @Override
         public T enableAnimation(boolean enableAnimation) {
             param.enableAnimation = enableAnimation;
