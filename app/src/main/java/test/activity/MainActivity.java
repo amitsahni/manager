@@ -32,6 +32,7 @@ public class MainActivity extends BaseAppCompatActivity {
         if (id == R.id.button) {
             ActivityManager.with(getApplicationContext())
                     .startActivity(SecondActivity.class)
+                    .sharedElements(new View[]{getBtn})
                     .build();
 
         } else {

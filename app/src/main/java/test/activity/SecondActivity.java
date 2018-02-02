@@ -27,7 +27,7 @@ public class SecondActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initUI() {
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
         ButterKnife.bind(this);
         getBtn.setOnClickListener(this);
         chnageLanguage.setOnClickListener(this);
@@ -42,8 +42,6 @@ public class SecondActivity extends BaseAppCompatActivity {
         }
         if (id == R.id.button1) {
             LanguageContextWrapper.wrap(this, "en", true);
-            ActivityManager.with(getApplicationContext())
-                    .finish();
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }

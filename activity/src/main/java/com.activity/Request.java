@@ -1,11 +1,15 @@
 package com.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.activity.di.IActivityProperties;
 import com.common.Constants;
@@ -39,12 +43,31 @@ public class Request {
         }
 
         @Override
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+        public T animation(int enterAnim, int exitAnim) {
+            param.enterAnim = enterAnim;
+            param.exitAnim = exitAnim;
+            param.isAnimation = true;
+            return (T) this;
+        }
+
+        @Override
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public T activityCompactOption(ActivityOptionsCompat activityOptionsCompat) {
             param.activityOptionsCompat = activityOptionsCompat;
             return (T) this;
         }
 
+        @Override
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public T sharedElements(View[] sharedElements) {
+            param.sharedElements = sharedElements;
+            return (T) this;
+        }
+
         public void build() {
+            Activity activity = Constants.getTopActivity();
+            if (activity == null) return;
             if (param.context == null) return;
             Intent intent = new Intent(param.context, param.uri);
             if (param.flag == 0) {
@@ -56,14 +79,34 @@ public class Request {
             if (param.bundle != null) {
                 intent.putExtras(param.bundle);
             }
-            if (param.activityOptionsCompat != null
-                    && Build.VERSION.SDK_INT >= 21) {
-                param.context.startActivity(intent, param.activityOptionsCompat.toBundle());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                Bundle bundle = new Bundle();
+                if (param.isAnimation) {
+                    bundle = ActivityOptionsCompat
+                            .makeCustomAnimation(param.context, param.enterAnim, param.exitAnim).toBundle();
+                } else if (param.sharedElements != null
+                        && param.sharedElements.length > 0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        int len = param.sharedElements.length;
+                        @SuppressWarnings("unchecked")
+                        Pair<View, String>[] pairs = new Pair[len];
+                        for (int i = 0; i < len; i++) {
+                            pairs[i] = Pair.create(param.sharedElements[i], param.sharedElements[i].getTransitionName());
+                        }
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs).toBundle();
+                    } else {
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle();
+                    }
+                } else if (param.activityOptionsCompat != null) {
+                    bundle = param.activityOptionsCompat.toBundle();
+                }
+                activity.startActivity(intent, bundle);
             } else {
-                param.context.startActivity(intent);
+                activity.startActivity(intent);
             }
         }
     }
+
 
     /**************************StartActivityFinish**************************/
     public static class StartActivityFinish<T extends StartActivityFinish> extends StartActivity<T> {
@@ -97,9 +140,28 @@ public class Request {
             }
             Activity activity = Constants.getTopActivity();
             if (activity == null) return;
-            if (param.activityOptionsCompat != null
-                    && Build.VERSION.SDK_INT >= 21) {
-                activity.startActivityForResult(intent, param.requestCode, param.activityOptionsCompat.toBundle());
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                Bundle bundle = new Bundle();
+                if (param.isAnimation) {
+                    bundle = ActivityOptionsCompat
+                            .makeCustomAnimation(param.context, param.enterAnim, param.exitAnim).toBundle();
+                } else if (param.sharedElements.length > 0) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        int len = param.sharedElements.length;
+                        @SuppressWarnings("unchecked")
+                        Pair<View, String>[] pairs = new Pair[len];
+                        for (int i = 0; i < len; i++) {
+                            pairs[i] = Pair.create(param.sharedElements[i], param.sharedElements[i].getTransitionName());
+                        }
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs).toBundle();
+                    } else {
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle();
+                    }
+                } else if (param.activityOptionsCompat != null) {
+                    bundle = param.activityOptionsCompat.toBundle();
+                }
+                activity.startActivityForResult(intent, param.requestCode, bundle);
             } else {
                 activity.startActivityForResult(intent, param.requestCode);
             }
@@ -130,10 +192,23 @@ public class Request {
             this.param = param;
         }
 
+        public T animation(int enterAnim, int exitAnim) {
+            param.enterAnim = enterAnim;
+            param.exitAnim = exitAnim;
+            param.isAnimation = true;
+            return (T) this;
+        }
+
         public void build() {
             Activity activity = Constants.getTopActivity();
             if (activity == null) return;
-            activity.finish();
+            if (activity instanceof AppCompatActivity) {
+                ((AppCompatActivity) activity).supportFinishAfterTransition();
+            } else {
+                activity.finish();
+            }
+            if (param.isAnimation)
+                activity.overridePendingTransition(param.enterAnim, param.exitAnim);
         }
     }
 }

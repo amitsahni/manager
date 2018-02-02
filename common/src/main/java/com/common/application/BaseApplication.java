@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.common.Constants;
 import com.common.broadcast.InternetBroadCastReceiver;
@@ -84,7 +85,7 @@ public class BaseApplication extends Application implements Application.Activity
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Constants.setTopActivity(activity);
+        Constants.setTopActivity((AppCompatActivity) activity);
         LocalBroadcastManager.getInstance(activity).registerReceiver(internetBroadCastReceiver, getFilter());
     }
 
