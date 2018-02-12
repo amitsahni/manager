@@ -37,8 +37,6 @@ public class MainActivity extends BaseAppCompatActivity {
             FragmentManager.with(this)
                     .utils()
                     .getTopFragmentByTag();
-
-
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }

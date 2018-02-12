@@ -146,7 +146,8 @@ public class Request {
                 if (param.isAnimation) {
                     bundle = ActivityOptionsCompat
                             .makeCustomAnimation(param.context, param.enterAnim, param.exitAnim).toBundle();
-                } else if (param.sharedElements.length > 0) {
+                } else if (param.sharedElements != null
+                        && param.sharedElements.length > 0) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         int len = param.sharedElements.length;
                         @SuppressWarnings("unchecked")
