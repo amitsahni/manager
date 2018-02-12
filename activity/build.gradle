@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
@@ -19,6 +20,7 @@ android {
 dependencies {
     compile deps.appcomat
     compile deps.multidex
+    compile deps.kotlin
 }
 // build a jar with source files
 task sourcesJar(type: Jar) {
@@ -42,4 +44,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+repositories {
+    mavenCentral()
 }
