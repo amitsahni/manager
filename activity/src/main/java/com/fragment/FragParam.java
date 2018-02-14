@@ -2,6 +2,7 @@ package com.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.view.View;
 
 
 /**
@@ -19,5 +20,6 @@ public class FragParam {
     String tag;
     boolean enableAnimation = false,
             isBackStack = false;
+    View[] sharedElements = null;
 
 }

@@ -11,7 +11,5 @@ import com.fragment.FragParam;
 
 public interface IFragmentProperties<T> {
 
-    T enableAnimation(boolean enableAnimation);
-
     T animation(int enter, int exit, int popEnter, int popExit);
 }

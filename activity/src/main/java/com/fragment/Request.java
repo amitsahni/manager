@@ -7,6 +7,9 @@ import android.app.FragmentTransaction;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
+import android.view.View;
 
 import com.common.Constants;
 import com.fragment.di.IFragmentProperties;
@@ -28,14 +31,13 @@ public class Request {
             this.param = param;
         }
 
-        @Override
-        public T enableAnimation(boolean enableAnimation) {
-            param.enableAnimation = enableAnimation;
+        public T backStack(boolean isBackStack) {
+            param.isBackStack = isBackStack;
             return (T) this;
         }
 
-        public T backStack(boolean isBackStack) {
-            param.isBackStack = isBackStack;
+        public T sharedElements(View... sharedElements) {
+            param.sharedElements = sharedElements;
             return (T) this;
         }
 
@@ -45,6 +47,7 @@ public class Request {
             param.exit = exit;
             param.popEnter = popEnter;
             param.popExit = popExit;
+            param.enableAnimation = true;
             return (T) this;
         }
 
@@ -56,6 +59,16 @@ public class Request {
             if (param.enableAnimation) {
                 ft.setCustomAnimations(param.enter, param.exit,
                         param.popEnter, param.popExit);
+            }
+            if (param.sharedElements != null
+                    && param.sharedElements.length > 0) {
+                for (View view : param.sharedElements) {
+                    ft.addSharedElement(view, view.getTransitionName());
+                }
+                TransitionSet enterTransitionSet = new TransitionSet();
+                enterTransitionSet.addTransition(TransitionInflater.from(param.context).inflateTransition(android.R.transition.move));
+                enterTransitionSet.setDuration(1000);
+                param.fragment.setSharedElementEnterTransition(enterTransitionSet);
             }
             ft.replace(param.replaceId, param.fragment);
             if (param.isBackStack) {
@@ -72,19 +85,13 @@ public class Request {
             this.param = param;
         }
 
-
-        @Override
-        public T enableAnimation(boolean enableAnimation) {
-            param.enableAnimation = enableAnimation;
-            return (T) this;
-        }
-
         @Override
         public T animation(int enter, int exit, int popEnter, int popExit) {
             param.enter = enter;
             param.exit = exit;
             param.popEnter = popEnter;
             param.popExit = popExit;
+            param.enableAnimation = true;
             return (T) this;
         }
 
@@ -116,17 +123,12 @@ public class Request {
 
 
         @Override
-        public T enableAnimation(boolean enableAnimation) {
-            param.enableAnimation = enableAnimation;
-            return (T) this;
-        }
-
-        @Override
         public T animation(int enter, int exit, int popEnter, int popExit) {
             param.enter = enter;
             param.exit = exit;
             param.popEnter = popEnter;
             param.popExit = popExit;
+            param.enableAnimation = true;
             return (T) this;
         }
 
