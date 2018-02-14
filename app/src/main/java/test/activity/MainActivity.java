@@ -1,5 +1,6 @@
 package test.activity;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,9 @@ public class MainActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getBtn.setOnClickListener(this);
+        FragmentManager.with(this)
+                .replace(android.R.id.content, MainFragment.init(MainFragment.class, new Bundle()))
+                .build();
     }
 
     @Override
