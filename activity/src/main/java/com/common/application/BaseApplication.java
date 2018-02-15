@@ -76,6 +76,7 @@ public class BaseApplication extends Application implements Application.Activity
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         // Nothing used
+        Constants.setTopActivity((AppCompatActivity) activity);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class SecondFragment extends BaseFragment {
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
         if (mView == null) {
             mView = LayoutInflater.from(getContext()).inflate(R.layout.activity_second, null);
-            ButterKnife.bind(getActivity(), mView);
+            ButterKnife.bind(this, mView);
         }
         return mView;
     }

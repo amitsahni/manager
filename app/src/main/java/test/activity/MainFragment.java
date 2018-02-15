@@ -26,7 +26,7 @@ public class MainFragment extends BaseFragment {
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
         if (mView == null) {
             mView = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
-            ButterKnife.bind(getActivity(), mView);
+            ButterKnife.bind(this, mView);
             getBtn.setOnClickListener(this);
         }
         return mView;
@@ -39,6 +39,7 @@ public class MainFragment extends BaseFragment {
             FragmentManager.with(getContext())
                     .replace(android.R.id.content, SecondFragment.init(SecondFragment.class, new Bundle()))
                     .sharedElements(getBtn)
+                    .backStack(true)
                     .build();
         } else {
             Log.i(getTag(), "No clickHandled");

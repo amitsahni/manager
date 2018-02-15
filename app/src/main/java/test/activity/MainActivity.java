@@ -17,15 +17,15 @@ import butterknife.ButterKnife;
  */
 
 public class MainActivity extends BaseAppCompatActivity {
-    @BindView(R.id.button)
-    Button getBtn;
+//    @BindView(R.id.button)
+//    Button getBtn;
 
 
     @Override
     protected void initUI() {
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_frag);
         ButterKnife.bind(this);
-        getBtn.setOnClickListener(this);
+//        getBtn.setOnClickListener(this);
         FragmentManager.with(this)
                 .replace(android.R.id.content, MainFragment.init(MainFragment.class, new Bundle()))
                 .build();
