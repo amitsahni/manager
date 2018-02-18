@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.annotation.AnimatorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.transition.ChangeImageTransform;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
 import android.view.View;
@@ -42,7 +46,8 @@ public class Request {
         }
 
         @Override
-        public T animation(int enter, int exit, int popEnter, int popExit) {
+        public T animation(@AnimatorRes int enter, @AnimatorRes int exit,
+                           @AnimatorRes int popEnter, @AnimatorRes int popExit) {
             param.enter = enter;
             param.exit = exit;
             param.popEnter = popEnter;
@@ -67,12 +72,18 @@ public class Request {
                 }
                 TransitionSet enterTransitionSet = new TransitionSet();
                 enterTransitionSet.addTransition(TransitionInflater.from(param.context).inflateTransition(android.R.transition.move));
-                enterTransitionSet.setDuration(1000);
+                enterTransitionSet.setDuration(800);
                 param.fragment.setSharedElementEnterTransition(enterTransitionSet);
+                param.fragment.setEnterTransition(new ChangeImageTransform());
             }
             ft.replace(param.replaceId, param.fragment);
             if (param.isBackStack) {
-                ft.addToBackStack(null);
+                String backStackName = null;
+                Fragment fragment = activity.getFragmentManager().findFragmentById(param.replaceId);
+                if (fragment != null) {
+                    backStackName = fragment.getClass().getSimpleName();
+                }
+                ft.addToBackStack(backStackName);
             }
             ft.commit();
         }

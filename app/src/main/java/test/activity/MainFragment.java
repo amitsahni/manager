@@ -1,6 +1,9 @@
 package test.activity;
 
 import android.os.Bundle;
+import android.transition.ChangeBounds;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +39,11 @@ public class MainFragment extends BaseFragment {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button) {
+            //setExitTransition(new Fade());
             FragmentManager.with(getContext())
                     .replace(android.R.id.content, SecondFragment.init(SecondFragment.class, new Bundle()))
                     .sharedElements(getBtn)
+                   // .animation(0, android.R.animator.fade_in, 0, 0)
                     .backStack(true)
                     .build();
         } else {

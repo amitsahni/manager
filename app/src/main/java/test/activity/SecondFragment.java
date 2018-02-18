@@ -1,6 +1,8 @@
 package test.activity;
 
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,5 +29,4 @@ public class SecondFragment extends BaseFragment {
         }
         return mView;
     }
-
 }
