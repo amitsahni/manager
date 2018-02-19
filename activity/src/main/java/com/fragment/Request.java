@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.support.annotation.AnimatorRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.transition.ChangeImageTransform;
-import android.transition.Fade;
-import android.transition.Slide;
+import android.support.annotation.RequiresApi;
 import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
 import android.view.View;
@@ -24,8 +23,7 @@ import java.util.List;
 /**
  * Created by clickapps on 31/1/18.
  */
-
-@SuppressWarnings("ALL")
+@SuppressWarnings("unchecked")
 public class Request {
     /*************************Replace*************************/
     public static class Replace<T extends Replace> implements IFragmentProperties<T> {
@@ -40,6 +38,7 @@ public class Request {
             return (T) this;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public T sharedElements(View... sharedElements) {
             param.sharedElements = sharedElements;
             return (T) this;
@@ -66,7 +65,8 @@ public class Request {
                         param.popEnter, param.popExit);
             }
             if (param.sharedElements != null
-                    && param.sharedElements.length > 0) {
+                    && param.sharedElements.length > 0
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 for (View view : param.sharedElements) {
                     ft.addSharedElement(view, view.getTransitionName());
                 }
@@ -74,7 +74,6 @@ public class Request {
                 enterTransitionSet.addTransition(TransitionInflater.from(param.context).inflateTransition(android.R.transition.move));
                 enterTransitionSet.setDuration(800);
                 param.fragment.setSharedElementEnterTransition(enterTransitionSet);
-                param.fragment.setEnterTransition(new ChangeImageTransform());
             }
             ft.replace(param.replaceId, param.fragment);
             if (param.isBackStack) {
