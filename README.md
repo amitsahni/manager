@@ -1,5 +1,5 @@
 
-# Version - 1.0.0
+# Version - 1.0.3
 ----
 ##### Really Important
 ##### BaseApplication need to extent or directly put in your app manifest
@@ -45,7 +45,6 @@ Optional
    .animation(enter,exit)
    .bundle(bundle)
 ```
-`compile 'com.github.amitsahni.manager:activity:1.0.1-alpha'`
 
 
 #### Fragment Replace
@@ -91,7 +90,6 @@ FragmentManager.with(this)
                .utils()
                .getTopFragmentByTag();                                                  
 ```
-`compile 'com.github.amitsahni.manager:fragment:1.0.1-alpha'`
 
 #### Extend `BaseAppCompatActivity`
 ##### If Connectivity Changes automatic notified under `OnConnectivityChanges` but for this need to add `BaseApplication` in your manifest
@@ -126,6 +124,10 @@ public class SampleActivity extends BaseAppCompatActivity{
 
 Download
 --------
+
+```groovy
+compile 'com.github.amitsahni:manager:1.0.3'
+```
 Add the JitPack repository to your root build.gradle:
 
 ```groovy
