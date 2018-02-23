@@ -49,10 +49,11 @@ class Request {
         }
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        override fun sharedElements(sharedElements: Array<View>): StartActivity {
-            param.sharedElements = sharedElements
+        override fun sharedElements(vararg sharedElements: View): StartActivity {
+            param.sharedElements = arrayOf(*sharedElements)
             return this
         }
+
 
         open fun build() {
             val activity = Constants.getTopActivity() ?: return
@@ -72,7 +73,9 @@ class Request {
                 if (param.isAnimation) {
                     bundle = ActivityOptionsCompat
                             .makeCustomAnimation(param.context!!, param.enterAnim, param.exitAnim).toBundle()
-                } else if (param.sharedElements.size > 0) {
+                } else if (param.activityOptionsCompat != null) {
+                    bundle = param.activityOptionsCompat!!.toBundle()
+                } else if (param.sharedElements.isNotEmpty()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         val len = param.sharedElements.size
                         val pairs = arrayOfNulls<Pair<View, String>>(len)
@@ -81,10 +84,10 @@ class Request {
                         }
                         bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
                     } else {
-                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle()
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
                     }
-                } else if (param.activityOptionsCompat != null) {
-                    bundle = param.activityOptionsCompat!!.toBundle()
+                } else {
+                    bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
                 }
                 activity.startActivity(intent, bundle)
             } else {
@@ -121,7 +124,9 @@ class Request {
                 if (param.isAnimation) {
                     bundle = ActivityOptionsCompat
                             .makeCustomAnimation(param.context!!, param.enterAnim, param.exitAnim).toBundle()
-                } else if (param.sharedElements.size > 0) {
+                } else if (param.activityOptionsCompat != null) {
+                    bundle = param.activityOptionsCompat!!.toBundle()
+                } else if (param.sharedElements.isNotEmpty()) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         val len = param.sharedElements.size
                         val pairs = arrayOfNulls<Pair<View, String>>(len)
@@ -130,10 +135,10 @@ class Request {
                         }
                         bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
                     } else {
-                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, null, null).toBundle()
+                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
                     }
-                } else if (param.activityOptionsCompat != null) {
-                    bundle = param.activityOptionsCompat!!.toBundle()
+                } else {
+                    bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
                 }
                 activity.startActivityForResult(intent, param.requestCode, bundle)
             } else {

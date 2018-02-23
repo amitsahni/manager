@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "test.activity"
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 25
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

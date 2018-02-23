@@ -17,8 +17,8 @@ import butterknife.ButterKnife;
  */
 
 public class MainActivity extends BaseAppCompatActivity {
-//    @BindView(R.id.button)
-//    Button getBtn;
+    @BindView(R.id.button)
+    Button getBtn;
 
 
     @Override
@@ -27,7 +27,7 @@ public class MainActivity extends BaseAppCompatActivity {
         ButterKnife.bind(this);
 //        getBtn.setOnClickListener(this);
         FragmentManager.with(this)
-                .replace(android.R.id.content, MainFragment.init(MainFragment.class, new Bundle()))
+                .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))
                 .build();
     }
 

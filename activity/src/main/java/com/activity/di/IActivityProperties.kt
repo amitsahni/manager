@@ -19,6 +19,5 @@ interface IActivityProperties<T> {
 
     fun activityCompactOption(activityOptionsCompat: ActivityOptionsCompat): T
 
-    fun sharedElements(sharedElements: Array<View>): T
-
+    fun sharedElements(vararg sharedElements: View): T
 }

@@ -27,12 +27,12 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
-        if (mView == null) {
-            mView = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
-            ButterKnife.bind(this, mView);
+        if (getMView() == null) {
+            setMView(LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null));
+            ButterKnife.bind(this, getMView());
             getBtn.setOnClickListener(this);
         }
-        return mView;
+        return getMView();
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MainFragment extends BaseFragment {
         if (id == R.id.button) {
             //setExitTransition(new Fade());
             FragmentManager.with(getContext())
-                    .replace(android.R.id.content, SecondFragment.init(SecondFragment.class, new Bundle()))
+                    .replace(android.R.id.content, SecondFragment.Companion.init(SecondFragment.class, new Bundle()))
                     .sharedElements(getBtn)
                    // .animation(0, android.R.animator.fade_in, 0, 0)
                     .backStack(true)
