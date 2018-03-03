@@ -65,7 +65,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         super.onResume()
         if (application is BaseApplication) {
             val internetBroadCastReceiver = (application as BaseApplication).internetBroadCastReceiver
-            internetBroadCastReceiver.addCallback(this)
+            internetBroadCastReceiver?.addCallback(this)
         }
     }
 
@@ -75,7 +75,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         if ((application is BaseApplication) && (application as BaseApplication).backHandler != null) {
-            (application as BaseApplication).backHandler.onBackPressed()
+            (application as BaseApplication).backHandler?.onBackPressed()
         } else {
             super.onBackPressed()
         }
@@ -88,7 +88,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (application is BaseApplication) {
             (application as BaseApplication).fragment?.let {
-                (application as BaseApplication).fragment.onActivityResult(requestCode, resultCode, data)
+                (application as BaseApplication).fragment?.onActivityResult(requestCode, resultCode, data)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

@@ -48,23 +48,4 @@ public class LanguageContextWrapper extends ContextWrapper {
         return new LanguageContextWrapper(context);
     }
 
-    @SuppressWarnings("deprecation")
-    public static Locale getSystemLocaleLegacy(Configuration config) {
-        return config.locale;
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    public static Locale getSystemLocale(Configuration config) {
-        return config.getLocales().get(0);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static void setSystemLocaleLegacy(Configuration config, Locale locale) {
-        config.locale = locale;
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    public static void setSystemLocale(Configuration config, Locale locale) {
-        config.setLocale(locale);
-    }
 }

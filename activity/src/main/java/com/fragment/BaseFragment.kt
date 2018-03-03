@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.common.application.BaseApplication
-import com.common.broadcast.InternetBroadCastReceiver
 import com.common.interfaces.ConnectivityListener
 import com.common.interfaces.OnBackHandler
 
@@ -75,11 +74,11 @@ abstract class BaseFragment : Fragment(),
 
     override fun onResume() {
         val baseApplication = activity.application as BaseApplication
-        if (baseApplication != null) {
-            baseApplication.setOnActivityResultFragment(if (mEnableOnActivityResult) this else null)
+        baseApplication?.let {
+            baseApplication.setOnActivityResultFragment(if (mEnableOnActivityResult) this else null!!)
             baseApplication.backHandler = if (mEnableBack) this else null
             val internetBroadCastReceiver = baseApplication.internetBroadCastReceiver
-            internetBroadCastReceiver.addCallback(this)
+            internetBroadCastReceiver?.addCallback(this)
         }
         super.onResume()
     }
