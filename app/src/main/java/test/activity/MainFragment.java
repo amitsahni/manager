@@ -24,15 +24,16 @@ import butterknife.ButterKnife;
 public class MainFragment extends BaseFragment {
     @BindView(R.id.button)
     Button getBtn;
+    View view;
 
     @Override
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
-        if (getMView() == null) {
-            setMView(LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null));
-            ButterKnife.bind(this, getMView());
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
+            ButterKnife.bind(this, view);
             getBtn.setOnClickListener(this);
         }
-        return getMView();
+        return view;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class MainFragment extends BaseFragment {
             FragmentManager.with(getContext())
                     .replace(android.R.id.content, SecondFragment.Companion.init(SecondFragment.class, new Bundle()))
                     .sharedElements(getBtn)
-                   // .animation(0, android.R.animator.fade_in, 0, 0)
+                    // .animation(0, android.R.animator.fade_in, 0, 0)
                     .backStack(true)
                     .build();
         } else {

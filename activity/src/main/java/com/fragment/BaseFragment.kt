@@ -28,16 +28,12 @@ abstract class BaseFragment : Fragment(),
         OnBackHandler, ConnectivityListener {
 
 
-    /**
-     * The View.
-     */
-    protected var mView: View? = null
-    private var mEnableBack = false
-    private var mEnableOnActivityResult = false
+    private var enableBack = false
+    private var enableOnActivityResult = false
 
     protected val bundle: Bundle
         get() {
-            var bundle: Bundle? = arguments
+            var bundle = arguments
             if (bundle == null) {
                 bundle = Bundle()
             }
@@ -60,7 +56,7 @@ abstract class BaseFragment : Fragment(),
      * Sets mFragment when called another activity or application eg camera or gallery
      */
     fun enableOnActivityResultFragment(enableOnActivityResultFragment: Boolean) {
-        mEnableOnActivityResult = enableOnActivityResultFragment
+        enableOnActivityResult = enableOnActivityResultFragment
     }
 
     /**
@@ -69,14 +65,14 @@ abstract class BaseFragment : Fragment(),
      * @param enableBack the enable back handle
      */
     fun enableBackPress(enableBack: Boolean) {
-        this.mEnableBack = enableBack
+        this.enableBack = enableBack
     }
 
     override fun onResume() {
         val baseApplication = activity.application as BaseApplication
         baseApplication?.let {
-            baseApplication.setOnActivityResultFragment(if (mEnableOnActivityResult) this else null!!)
-            baseApplication.backHandler = if (mEnableBack) this else null
+            baseApplication.setOnActivityResultFragment(if (enableOnActivityResult) this else null!!)
+            baseApplication.backHandler = if (enableBack) this else null
             val internetBroadCastReceiver = baseApplication.internetBroadCastReceiver
             internetBroadCastReceiver?.addCallback(this)
         }
