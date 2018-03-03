@@ -20,13 +20,14 @@ import butterknife.ButterKnife;
  */
 
 public class SecondFragment extends BaseFragment {
+    View view;
 
     @Override
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
-        if (getMView() == null) {
-            setMView(LayoutInflater.from(getContext()).inflate(R.layout.activity_second, null));
-            ButterKnife.bind(this, getMView());
+        if (view == null) {
+            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_second, null);
+            ButterKnife.bind(this, view);
         }
-        return getMView();
+        return view;
     }
 }
