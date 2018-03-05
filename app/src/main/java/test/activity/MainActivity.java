@@ -24,7 +24,7 @@ public class MainActivity extends BaseAppCompatActivity {
     @Override
     protected void initUI() {
         setContentView(R.layout.activity_frag);
-        ButterKnife.bind(this);
+       // ButterKnife.bind(this);
 //        getBtn.setOnClickListener(this);
         FragmentManager.with(this)
                 .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))

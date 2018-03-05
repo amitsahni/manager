@@ -57,11 +57,11 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
      *
      * @param fragment the fragment
      */
-    fun setOnActivityResultFragment(fragment: Fragment) {
+    fun setOnActivityResultFragment(fragment: Fragment?) {
         this.fragment = fragment
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         // Nothing used
         Constants.setTopActivity(activity as AppCompatActivity)
     }

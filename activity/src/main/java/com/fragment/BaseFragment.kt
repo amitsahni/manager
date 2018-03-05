@@ -50,7 +50,7 @@ abstract class BaseFragment : Fragment(),
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle): View? {
+                              savedInstanceState: Bundle?): View? {
         return initUI(inflater, container)
     }
 
@@ -73,7 +73,7 @@ abstract class BaseFragment : Fragment(),
     override fun onResume() {
         val baseApplication = activity.application as BaseApplication
         baseApplication?.let {
-            baseApplication.setOnActivityResultFragment(if (enableOnActivityResult) this else null!!)
+            baseApplication.setOnActivityResultFragment(if (enableOnActivityResult) this else null)
             baseApplication.backHandler = if (enableBack) this else null
             val internetBroadCastReceiver = baseApplication.internetBroadCastReceiver
             internetBroadCastReceiver?.addCallback(this)

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.support.annotation.Nullable
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -48,7 +49,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     /**
      * This method is used to show layout.
      */
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
