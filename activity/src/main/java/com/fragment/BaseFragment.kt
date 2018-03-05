@@ -49,10 +49,6 @@ abstract class BaseFragment : Fragment(),
              return null
         }
 
-    override fun getContext(): Context {
-        return fragmentActivity!!
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle): View? {
         return initUI(inflater, container)
