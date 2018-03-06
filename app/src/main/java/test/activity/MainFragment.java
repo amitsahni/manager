@@ -44,7 +44,6 @@ public class MainFragment extends BaseFragment {
             //setExitTransition(new Fade());
             FragmentManager.with(getActivity())
                     .replace(android.R.id.content, SecondFragment.Companion.init(SecondFragment.class, new Bundle()))
-                    .sharedElements(getBtn)
                     // .animation(0, android.R.animator.fade_in, 0, 0)
                     .backStack(true)
                     .build();

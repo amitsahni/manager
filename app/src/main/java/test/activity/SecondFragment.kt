@@ -10,7 +10,7 @@ import com.fragment.BaseFragment
  * Created by amit on 14/2/18.
  */
 
-class SecondFragment : BaseFragment() {
+open class SecondFragment : BaseFragment() {
     internal var view: View? = null
 
     override fun initUI(inflater: LayoutInflater, container: ViewGroup?): View {
