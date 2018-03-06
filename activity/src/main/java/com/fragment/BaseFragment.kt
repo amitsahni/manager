@@ -1,14 +1,11 @@
 package com.fragment
 
 import android.app.Fragment
-import android.content.Context
 import android.os.Bundle
-import android.support.annotation.Nullable
 import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.common.application.BaseApplication
 import com.common.interfaces.ConnectivityListener
 import com.common.interfaces.OnBackHandler
@@ -44,9 +41,9 @@ abstract class BaseFragment : Fragment(),
     val fragmentActivity: FragmentActivity?
         get() {
             activity?.let {
-                return activity as FragmentActivity
+                return it as FragmentActivity
             }
-             return null
+            return null
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

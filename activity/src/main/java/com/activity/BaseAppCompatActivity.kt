@@ -86,7 +86,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         super.recreate()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (application is BaseApplication) {
             (application as BaseApplication).fragment?.let {
                 (application as BaseApplication).fragment?.onActivityResult(requestCode, resultCode, data)

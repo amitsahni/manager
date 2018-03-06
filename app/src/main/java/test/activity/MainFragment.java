@@ -1,5 +1,6 @@
 package test.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
 import android.transition.Fade;
@@ -29,7 +30,7 @@ public class MainFragment extends BaseFragment {
     @Override
     protected View initUI(LayoutInflater inflater, ViewGroup container) {
         if (view == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.activity_main, null);
+            view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main, null);
             ButterKnife.bind(this, view);
             getBtn.setOnClickListener(this);
         }
@@ -41,7 +42,7 @@ public class MainFragment extends BaseFragment {
         int id = view.getId();
         if (id == R.id.button) {
             //setExitTransition(new Fade());
-            FragmentManager.with(getContext())
+            FragmentManager.with(getActivity())
                     .replace(android.R.id.content, SecondFragment.Companion.init(SecondFragment.class, new Bundle()))
                     .sharedElements(getBtn)
                     // .animation(0, android.R.animator.fade_in, 0, 0)
