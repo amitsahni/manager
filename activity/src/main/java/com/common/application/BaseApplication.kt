@@ -11,8 +11,7 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
 import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AppCompatActivity
-
+import com.activity.BaseAppCompatActivity
 import com.common.Constants
 import com.common.broadcast.InternetBroadCastReceiver
 import com.common.broadcast.NetworkBroadCastReceiver
@@ -63,7 +62,9 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         // Nothing used
-        Constants.setTopActivity(activity as AppCompatActivity)
+        if (activity is BaseAppCompatActivity) {
+            Constants.setTopActivity(activity)
+        }
     }
 
     override fun onActivityStarted(activity: Activity) {
@@ -71,7 +72,9 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun onActivityResumed(activity: Activity) {
-        Constants.setTopActivity(activity as AppCompatActivity)
+        if (activity is BaseAppCompatActivity) {
+            Constants.setTopActivity(activity)
+        }
         LocalBroadcastManager.getInstance(activity).registerReceiver(internetBroadCastReceiver!!, getFilter())
     }
 

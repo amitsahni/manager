@@ -33,7 +33,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     protected val bundle: Bundle
         get() {
-            intent.extras?.let {
+            intent.extras?.apply {
                 return intent.extras
             }
             return Bundle()
@@ -75,8 +75,10 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
 
     override fun onBackPressed() {
-        if ((application is BaseApplication) && (application as BaseApplication).backHandler != null) {
-            (application as BaseApplication).backHandler?.onBackPressed()
+        if (application is BaseApplication) {
+            (application as BaseApplication).also {
+                it.backHandler?.onBackPressed()
+            }
         } else {
             super.onBackPressed()
         }
@@ -88,8 +90,8 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (application is BaseApplication) {
-            (application as BaseApplication).fragment?.let {
-                (application as BaseApplication).fragment?.onActivityResult(requestCode, resultCode, data)
+            (application as BaseApplication).fragment?.also {
+                it.onActivityResult(requestCode, resultCode, data)
             }
         }
         super.onActivityResult(requestCode, resultCode, data)

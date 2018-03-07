@@ -40,8 +40,10 @@ abstract class BaseFragment : Fragment(),
 
     val fragmentActivity: FragmentActivity?
         get() {
-            activity?.let {
-                return it as FragmentActivity
+            activity?.also {
+                if(it is FragmentActivity){
+                    return it
+                }
             }
             return null
         }
@@ -68,12 +70,13 @@ abstract class BaseFragment : Fragment(),
     }
 
     override fun onResume() {
-        val baseApplication = activity.application as BaseApplication
-        baseApplication?.let {
-            baseApplication.setOnActivityResultFragment(if (enableOnActivityResult) this else null)
-            baseApplication.backHandler = if (enableBack) this else null
-            val internetBroadCastReceiver = baseApplication.internetBroadCastReceiver
-            internetBroadCastReceiver?.addCallback(this)
+        activity.application.also {
+            if (it is BaseApplication) {
+                it.setOnActivityResultFragment(if (enableOnActivityResult) this else null)
+                it.backHandler = if (enableBack) this else null
+                val internetBroadCastReceiver = it.internetBroadCastReceiver
+                internetBroadCastReceiver?.addCallback(this)
+            }
         }
         super.onResume()
     }
