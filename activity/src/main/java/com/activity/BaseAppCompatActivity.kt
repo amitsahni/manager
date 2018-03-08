@@ -77,7 +77,11 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     override fun onBackPressed() {
         if (application is BaseApplication) {
             (application as BaseApplication).also {
-                it.backHandler?.onBackPressed()
+                if (it.backHandler != null) {
+                    it.backHandler?.onBackPressed()
+                } else {
+                    super.onBackPressed()
+                }
             }
         } else {
             super.onBackPressed()
