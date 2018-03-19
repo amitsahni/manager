@@ -84,10 +84,10 @@ class Request {
                         }
                         bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
                     } else {
-                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                        bundle = Bundle()
                     }
                 } else {
-                    bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                    bundle = Bundle()
                 }
                 activity.startActivity(intent, bundle)
             } else {
@@ -135,10 +135,10 @@ class Request {
                         }
                         bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, *pairs).toBundle()
                     } else {
-                        bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                        bundle = Bundle()
                     }
                 } else {
-                    bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity).toBundle()
+                    bundle = Bundle()
                 }
                 activity.startActivityForResult(intent, param.requestCode, bundle)
             } else {
