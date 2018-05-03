@@ -2,7 +2,6 @@ package com.common.application
 
 import android.app.Activity
 import android.app.Application
-import android.app.Fragment
 import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
@@ -10,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
+import android.support.v4.app.Fragment
 import android.support.v4.content.LocalBroadcastManager
 import com.activity.BaseAppCompatActivity
 import com.common.Constants

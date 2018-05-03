@@ -1,7 +1,7 @@
 package com.fragment
 
-import android.app.Fragment
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +41,7 @@ abstract class BaseFragment : Fragment(),
     val fragmentActivity: FragmentActivity?
         get() {
             activity?.also {
-                if(it is FragmentActivity){
+                if (it is FragmentActivity) {
                     return it
                 }
             }
@@ -70,7 +70,7 @@ abstract class BaseFragment : Fragment(),
     }
 
     override fun onResume() {
-        activity.application.also {
+        activity?.application.also {
             if (it is BaseApplication) {
                 it.setOnActivityResultFragment(if (enableOnActivityResult) this else null)
                 it.backHandler = if (enableBack) this else null
@@ -81,7 +81,7 @@ abstract class BaseFragment : Fragment(),
         super.onResume()
     }
 
-    fun onPageSelected(pos: Int) {
+    open fun onPageSelected(pos: Int) {
 
     }
 
@@ -109,7 +109,7 @@ abstract class BaseFragment : Fragment(),
 
     companion object {
 
-        fun <T : Fragment> init(fragment: Class<T>, bundle: Bundle): Fragment {
+        open fun <T : Fragment> init(fragment: Class<T>, bundle: Bundle): Fragment {
             try {
                 val f = fragment.newInstance()
                 f.arguments = bundle

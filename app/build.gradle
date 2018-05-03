@@ -9,9 +9,8 @@ android {
         applicationId "test.activity"
         minSdkVersion 17
         targetSdkVersion 25
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -20,20 +19,14 @@ android {
         }
     }
 
-//    configurations.all {
-//        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-//        resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
-//    }
-//    allprojects {
-//        repositories {
-//            maven { url 'https://jitpack.io' }
-//        }
-//    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:27.1.0'
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile project(':activity')
+    implementation project(':activity')
+    implementation deps.kotlin
+    implementation deps.multidex
+    implementation 'com.android.support:transition:27.1.1'
 }

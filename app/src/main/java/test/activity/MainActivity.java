@@ -9,6 +9,8 @@ import com.activity.ActivityManager;
 import com.activity.BaseAppCompatActivity;
 import com.fragment.FragmentManager;
 
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,12 +25,15 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initUI() {
-        setContentView(R.layout.activity_frag);
-       // ButterKnife.bind(this);
-//        getBtn.setOnClickListener(this);
-        FragmentManager.with(this)
-                .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))
-                .build();
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        getBtn.setOnClickListener(this);
+        String[] a = {"1","2"};
+        String value = Arrays.toString(a);
+        Log.i(getLocalClassName(),"Value = "+value);
+//        FragmentManager.with(this)
+//                .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))
+//                .build();
     }
 
     @Override
@@ -37,6 +42,7 @@ public class MainActivity extends BaseAppCompatActivity {
         if (id == R.id.button) {
             ActivityManager.with(getApplicationContext())
                     .startActivity(SecondActivity.class)
+                    .sharedElements(view)
                     .build();
             FragmentManager.with(this)
                     .utils()

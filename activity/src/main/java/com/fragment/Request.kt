@@ -1,13 +1,14 @@
 package com.fragment
 
-import android.app.Fragment
 import android.os.Build
 import android.support.annotation.AnimatorRes
 import android.support.annotation.IdRes
 import android.support.annotation.RequiresApi
+import android.support.v4.app.Fragment
 import android.transition.TransitionInflater
 import android.transition.TransitionSet
 import android.view.View
+import com.activity.BaseAppCompatActivity
 import com.common.Constants
 import com.fragment.di.IFragmentProperties
 import java.util.*
@@ -42,7 +43,8 @@ class Request {
 
         fun build() {
             val activity = Constants.getTopActivity() ?: return
-            val ft = activity.fragmentManager
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
+            val ft = fragmentManager
                     .beginTransaction()
             if (param.enableAnimation) {
                 ft.setCustomAnimations(param.enter, param.exit,
@@ -61,7 +63,7 @@ class Request {
             ft.replace(param.replaceId, param.fragment)
             if (param.isBackStack) {
                 var backStackName: String? = null
-                val fragment = activity.fragmentManager.findFragmentById(param.replaceId)
+                val fragment = fragmentManager.findFragmentById(param.replaceId)
                 if (fragment != null) {
                     backStackName = fragment.javaClass.simpleName
                 }
@@ -84,7 +86,7 @@ class Request {
 
         fun build() {
             val activity = Constants.getTopActivity() ?: return
-            val fragmentManager = activity.fragmentManager
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
             val ft = fragmentManager.beginTransaction()
             val count = fragmentManager.backStackEntryCount
             if (count > 0) {
@@ -114,7 +116,7 @@ class Request {
 
         fun build() {
             val activity = Constants.getTopActivity() ?: return
-            val fragmentManager = activity.fragmentManager
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
             val ft = fragmentManager.beginTransaction()
             val count = fragmentManager.backStackEntryCount
             if (count > 0) {
@@ -134,7 +136,8 @@ class Request {
 
         fun build() {
             val activity = Constants.getTopActivity() ?: return
-            val ft = activity.fragmentManager.beginTransaction()
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
+            val ft = fragmentManager.beginTransaction()
             ft.detach(param.fragment)
             ft.attach(param.fragment)
             ft.commit()
@@ -146,7 +149,7 @@ class Request {
         val topFragmentByTag: Fragment?
             get() {
                 val activity = Constants.getTopActivity() ?: return null
-                val fragmentManager = activity.fragmentManager
+                val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
                 var fragment: Fragment? = null
                 for (entry in 0 until fragmentManager.backStackEntryCount) {
                     fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(entry)
@@ -158,7 +161,7 @@ class Request {
         val topFragmentById: Fragment?
             get() {
                 val activity = Constants.getTopActivity() ?: return null
-                val fragmentManager = activity.fragmentManager
+                val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
                 var fragment: Fragment? = null
                 for (entry in 0 until fragmentManager.backStackEntryCount) {
                     fragment = fragmentManager.findFragmentById(fragmentManager.getBackStackEntryAt(entry)
@@ -171,9 +174,9 @@ class Request {
             get() {
                 val list = ArrayList<String>()
                 val activity = Constants.getTopActivity() ?: return list
-                val fm = activity.fragmentManager
-                for (entry in 0 until fm.backStackEntryCount) {
-                    list.add(fm.getBackStackEntryAt(entry).name)
+                val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
+                for (entry in 0 until fragmentManager.backStackEntryCount) {
+                    list.add(fragmentManager.getBackStackEntryAt(entry).name)
                 }
                 return list
             }
@@ -181,15 +184,15 @@ class Request {
         fun getFragment(@IdRes id: Int): Fragment? {
             val list = ArrayList<String>()
             val activity = Constants.getTopActivity() ?: return null
-            val fm = activity.fragmentManager
-            return fm.findFragmentById(id)
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
+            return fragmentManager.findFragmentById(id)
         }
 
         fun getFragment(tag: String): Fragment? {
             val list = ArrayList<String>()
             val activity = Constants.getTopActivity() ?: return null
-            val fm = activity.fragmentManager
-            return fm.findFragmentByTag(tag)
+            val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
+            return fragmentManager.findFragmentByTag(tag)
         }
     }
 }
