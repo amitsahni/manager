@@ -60,7 +60,7 @@ class Request {
                 enterTransitionSet.duration = 800
                 param.fragment!!.sharedElementEnterTransition = enterTransitionSet
             }
-            ft.replace(param.replaceId, param.fragment)
+            ft.replace(param.replaceId, param.fragment!!)
             if (param.isBackStack) {
                 var backStackName: String? = null
                 val fragment = fragmentManager.findFragmentById(param.replaceId)
@@ -94,7 +94,7 @@ class Request {
                     ft.setCustomAnimations(param.enter, param.exit,
                             param.popEnter, param.popExit)
                 }
-                ft.remove(fragmentManager.findFragmentById(param.replaceId))
+                ft.remove(fragmentManager.findFragmentById(param.replaceId)!!)
                 ft.commit()
                 fragmentManager.popBackStackImmediate()
             }
@@ -124,7 +124,7 @@ class Request {
                     ft.setCustomAnimations(param.enter, param.exit,
                             param.popEnter, param.popExit)
                 }
-                ft.remove(fragmentManager.findFragmentByTag(param.tag))
+                ft.remove(fragmentManager.findFragmentByTag(param.tag)!!)
                 ft.commit()
                 fragmentManager.popBackStackImmediate()
             }
@@ -138,8 +138,8 @@ class Request {
             val activity = Constants.getTopActivity() ?: return
             val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
             val ft = fragmentManager.beginTransaction()
-            ft.detach(param.fragment)
-            ft.attach(param.fragment)
+            ft.detach(param.fragment!!)
+            ft.attach(param.fragment!!)
             ft.commit()
         }
     }
@@ -176,7 +176,7 @@ class Request {
                 val activity = Constants.getTopActivity() ?: return list
                 val fragmentManager = (activity as BaseAppCompatActivity).supportFragmentManager
                 for (entry in 0 until fragmentManager.backStackEntryCount) {
-                    list.add(fragmentManager.getBackStackEntryAt(entry).name)
+                    list.add(fragmentManager.getBackStackEntryAt(entry).name!!)
                 }
                 return list
             }
