@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment
 import com.activity.BaseAppCompatActivity
 import com.common.Constants
 import com.common.broadcast.ConnectionLiveData
+import com.common.broadcast.FragmentOnActivityResultLiveData
 
 
 /**
@@ -28,7 +29,6 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
         connectionLiveData.observeForever {
             (Constants.getTopActivity() as BaseAppCompatActivity).onConnectivityChange(it!!)
         }
-
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {

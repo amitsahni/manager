@@ -26,4 +26,6 @@ class FragmentOnActivityResultLiveData(val context: Context) : LiveData<Intent>(
             postValue(intent)
         }
     }
+
+
 }

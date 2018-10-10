@@ -72,7 +72,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (enableOnActivityResult) {
             val intent = Intent(Constants.getActionBroadcastOnResult())
-            intent.putExtras(data)
+            intent.putExtra("data", data)
             intent.putExtra("requestCode", requestCode)
             intent.putExtra("resultCode", resultCode)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent)

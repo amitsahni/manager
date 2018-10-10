@@ -1,6 +1,7 @@
 package com.fragment
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -66,7 +67,7 @@ abstract class BaseFragment : Fragment(),
             onResultLiveData?.observe(this, Observer {
                 val requestCode = it?.extras!!["requestCode"] as Int
                 val resultCode = it.extras!!["resultCode"] as Int
-                val data = it
+                val data = it.extras!!["data"] as Intent
                 onActivityResult(requestCode, resultCode, data)
             })
         } else {
