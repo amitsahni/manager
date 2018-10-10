@@ -52,7 +52,7 @@ class Request {
             }
             if (param.sharedElements.isNotEmpty()
                     && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                for (view in param.sharedElements!!) {
+                for (view in param.sharedElements) {
                     ft.addSharedElement(view, view.transitionName)
                 }
                 val enterTransitionSet = TransitionSet()

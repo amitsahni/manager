@@ -3,7 +3,6 @@ package com.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.support.annotation.Nullable
 import android.support.v4.content.LocalBroadcastManager
@@ -12,8 +11,7 @@ import android.view.View
 import com.common.Constants
 import com.common.LanguageContextWrapper
 import com.common.application.BaseApplication
-import com.common.broadcast.LanguageBroadCastReceiver
-import com.common.interfaces.ConnectivityListener
+import com.common.broadcast.LanguageLiveData
 import java.util.*
 
 
@@ -25,11 +23,11 @@ import java.util.*
  */
 abstract class BaseAppCompatActivity : AppCompatActivity(),
         //to identify child tasks and perform on activity itself
-        View.OnClickListener, ConnectivityListener {
+        View.OnClickListener {
 
     protected var TAG: String = ""
-    private var languageBroadCastReceiver: LanguageBroadCastReceiver? = null
-    private val filter = IntentFilter(Constants.getActionBroadcastLanguageChanged())
+    var enableBackPress = false
+    var enableOnActivityResult = false
 
     protected val bundle: Bundle
         get() {
@@ -53,21 +51,10 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
-        languageBroadCastReceiver = LanguageBroadCastReceiver(this)
-        LocalBroadcastManager.getInstance(this).registerReceiver(languageBroadCastReceiver!!, filter)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(languageBroadCastReceiver!!)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (application is BaseApplication) {
-            val internetBroadCastReceiver = (application as BaseApplication).internetBroadCastReceiver
-            internetBroadCastReceiver?.addCallback(this)
-        }
+        val languageLiveData = LanguageLiveData(applicationContext)
+        languageLiveData.observe(this, android.arch.lifecycle.Observer {
+            recreate()
+        })
     }
 
     override fun onClick(v: View) {
@@ -75,33 +62,25 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
 
     override fun onBackPressed() {
-        if (application is BaseApplication) {
-            (application as BaseApplication).also {
-                if (it.backHandler != null) {
-                    it.backHandler?.onBackPressed()
-                } else {
-                    super.onBackPressed()
-                }
-            }
+        if (enableBackPress) {
+            LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(Constants.getActionBroadcastBackHandler()))
         } else {
             super.onBackPressed()
         }
     }
 
-    override fun recreate() {
-        super.recreate()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (application is BaseApplication) {
-            (application as BaseApplication).fragment?.also {
-                it.onActivityResult(requestCode, resultCode, data)
-            }
+        if (enableOnActivityResult) {
+            val intent = Intent(Constants.getActionBroadcastOnResult())
+            intent.putExtras(data)
+            intent.putExtra("requestCode", requestCode)
+            intent.putExtra("resultCode", resultCode)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onConnectivityChange(isConnectivity: Boolean) {
+    open fun onConnectivityChange(isConnectivity: Boolean) {
     }
 
     override fun attachBaseContext(newBase: Context) {

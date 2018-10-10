@@ -1,14 +1,16 @@
 package com.fragment
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.activity.BaseAppCompatActivity
 import com.common.application.BaseApplication
-import com.common.interfaces.ConnectivityListener
-import com.common.interfaces.OnBackHandler
+import com.common.broadcast.BackHandlerLiveData
+import com.common.broadcast.FragmentOnActivityResultLiveData
 
 
 /**
@@ -21,9 +23,7 @@ import com.common.interfaces.OnBackHandler
  */
 abstract class BaseFragment : Fragment(),
         //click event listener
-        View.OnClickListener,
-        // Back press handle on Fragment
-        OnBackHandler, ConnectivityListener {
+        View.OnClickListener {
 
 
     private var enableBack = false
@@ -47,9 +47,13 @@ abstract class BaseFragment : Fragment(),
             }
             return null
         }
+    var backHandler: BackHandlerLiveData? = null
+    var onResultLiveData: FragmentOnActivityResultLiveData? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        backHandler = BackHandlerLiveData(fragmentActivity!!.applicationContext)
+        onResultLiveData = FragmentOnActivityResultLiveData(fragmentActivity!!.applicationContext)
         return initUI(inflater, container)
     }
 
@@ -58,6 +62,16 @@ abstract class BaseFragment : Fragment(),
      */
     fun enableOnActivityResultFragment(enableOnActivityResultFragment: Boolean) {
         enableOnActivityResult = enableOnActivityResultFragment
+        if (enableOnActivityResult) {
+            onResultLiveData?.observe(this, Observer {
+                val requestCode = it?.extras!!["requestCode"] as Int
+                val resultCode = it.extras!!["resultCode"] as Int
+                val data = it
+                onActivityResult(requestCode, resultCode, data)
+            })
+        } else {
+            onResultLiveData?.removeObservers(this)
+        }
     }
 
     /**
@@ -67,18 +81,21 @@ abstract class BaseFragment : Fragment(),
      */
     fun enableBackPress(enableBack: Boolean) {
         this.enableBack = enableBack
+        if (enableBack) {
+            backHandler?.observe(this, Observer {
+                onBackPressed()
+            })
+        } else {
+            backHandler?.removeObservers(this)
+        }
     }
 
     override fun onResume() {
-        activity?.application.also {
-            if (it is BaseApplication) {
-                it.setOnActivityResultFragment(if (enableOnActivityResult) this else null)
-                it.backHandler = if (enableBack) this else null
-                val internetBroadCastReceiver = it.internetBroadCastReceiver
-                internetBroadCastReceiver?.addCallback(this)
-            }
-        }
         super.onResume()
+        if (fragmentActivity is BaseAppCompatActivity) {
+            (fragmentActivity as BaseAppCompatActivity).enableBackPress = this.enableBack
+            (fragmentActivity as BaseAppCompatActivity).enableOnActivityResult = this.enableOnActivityResult
+        }
     }
 
     open fun onPageSelected(pos: Int) {
@@ -89,11 +106,11 @@ abstract class BaseFragment : Fragment(),
 
     }
 
-    override fun onBackPressed() {
+    open fun onBackPressed() {
 
     }
 
-    override fun onConnectivityChange(isConnectivity: Boolean) {
+    open fun onConnectivityChange(isConnectivity: Boolean) {
 
     }
 
