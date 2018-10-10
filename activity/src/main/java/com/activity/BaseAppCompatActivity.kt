@@ -4,6 +4,7 @@ package com.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.annotation.Nullable
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
@@ -75,7 +76,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
             intent.putExtra("data", data)
             intent.putExtra("requestCode", requestCode)
             intent.putExtra("resultCode", resultCode)
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            Handler().postDelayed({
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            }, 1)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

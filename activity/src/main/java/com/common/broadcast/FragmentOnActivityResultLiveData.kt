@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.support.v4.content.LocalBroadcastManager
+import android.util.Log
 import com.common.Constants
 
 class FragmentOnActivityResultLiveData(val context: Context) : LiveData<Intent>() {
@@ -23,6 +24,7 @@ class FragmentOnActivityResultLiveData(val context: Context) : LiveData<Intent>(
 
     private val onResultBroadCastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            Log.i("onReceive", "Intent = " + intent)
             postValue(intent)
         }
     }

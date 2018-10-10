@@ -67,7 +67,7 @@ abstract class BaseFragment : Fragment(),
             onResultLiveData?.observe(this, Observer {
                 val requestCode = it?.extras!!["requestCode"] as Int
                 val resultCode = it.extras!!["resultCode"] as Int
-                val data = it.extras!!["data"] as Intent
+                val data = if (it.extras!!["data"] is Intent) it.extras!!["data"] as Intent else null
                 onActivityResult(requestCode, resultCode, data)
             })
         } else {
