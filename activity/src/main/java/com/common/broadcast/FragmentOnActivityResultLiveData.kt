@@ -24,7 +24,6 @@ class FragmentOnActivityResultLiveData(val context: Context) : LiveData<Intent>(
 
     private val onResultBroadCastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            Log.i("onReceive", "Intent = " + intent)
             postValue(intent)
         }
     }
