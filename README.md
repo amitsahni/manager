@@ -1,5 +1,4 @@
 
-# Version - 1.0.3
 ----
 ##### Really Important
 ##### BaseApplication need to extent or directly put in your app manifest
