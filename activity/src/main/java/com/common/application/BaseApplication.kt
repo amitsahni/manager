@@ -7,11 +7,9 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
-import android.support.v4.app.Fragment
 import com.activity.BaseAppCompatActivity
 import com.common.Constants
 import com.common.broadcast.ConnectionLiveData
-import com.common.broadcast.FragmentOnActivityResultLiveData
 
 
 /**

@@ -31,9 +31,9 @@ public class MainActivity extends BaseAppCompatActivity {
         String[] a = {"1","2"};
         String value = Arrays.toString(a);
         Log.i(getLocalClassName(),"Value = "+value);
-        FragmentManager.with(this)
-                .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))
-                .build();
+//        FragmentManager.with(this)
+//                .replace(android.R.id.content, MainFragment.Companion.init(MainFragment.class, new Bundle()))
+//                .build();
     }
 
     @Override
