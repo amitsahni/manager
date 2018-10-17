@@ -9,7 +9,9 @@ import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
 import com.activity.BaseAppCompatActivity
 import com.common.Constants
+import com.common.LanguageContextWrapper
 import com.common.broadcast.ConnectionLiveData
+import java.util.*
 
 
 /**
@@ -63,7 +65,7 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
+        super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language))
         MultiDex.install(this)
         registerActivityLifecycleCallbacks(this)
     }

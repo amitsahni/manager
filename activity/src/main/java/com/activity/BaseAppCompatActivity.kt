@@ -3,6 +3,7 @@ package com.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.Nullable
@@ -87,6 +88,11 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     }
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().language))
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().language));
+        } else {
+            super.attachBaseContext(newBase);
+        }
+        //super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().language))
     }
 }
