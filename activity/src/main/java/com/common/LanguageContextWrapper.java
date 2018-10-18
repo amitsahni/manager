@@ -18,58 +18,37 @@ import java.util.Locale;
 public class LanguageContextWrapper extends ContextWrapper {
 
     public LanguageContextWrapper(Context base) {
-        super(base.getApplicationContext());
+        super(base);
     }
 
     public static ContextWrapper wrap(Context context, String language) {
-        return wrap(context.getApplicationContext(), language, false);
+        return wrap(context, language, false);
     }
 
     public static ContextWrapper wrap(Context context, String language, boolean isBroadCast) {
-//        if (!language.equals("")) {
-//            Locale locale = new Locale(language);
-//            Locale.setDefault(locale);
-//            Resources resources = context.getResources();
-//            Configuration configuration = resources.getConfiguration();
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                configuration.setLocale(locale);
-//                configuration.setLayoutDirection(locale);
-//                context.createConfigurationContext(configuration);
-//            } else {
-//                configuration.locale = locale;
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//                    configuration.setLayoutDirection(locale);
-//                }
-//            }
-//            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-//            if (isBroadCast)
-//                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.getActionBroadcastLanguageChanged()));
-//        }
-
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Resources resources = context.getApplicationContext().getResources();
-        Configuration configuration = resources.getConfiguration();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            configuration.setLocale(locale);
-            LocaleList localeList = new LocaleList(locale);
-            LocaleList.setDefault(localeList);
-            configuration.setLocales(localeList);
-            configuration.setLayoutDirection(locale);
-            context.getApplicationContext().createConfigurationContext(configuration);
-
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLocale(locale);
-            configuration.setLayoutDirection(locale);
-            context.getApplicationContext().createConfigurationContext(configuration);
-
-        } else {
-            configuration.locale = locale;
+        if (!language.equals("")) {
+            Locale locale = new Locale(language);
+            Locale.setDefault(locale);
+            Resources resources = context.getResources();
+            Configuration configuration = resources.getConfiguration();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                configuration.setLocale(locale);
+                LocaleList localeList = new LocaleList(locale);
+                LocaleList.setDefault(localeList);
+                configuration.setLocales(localeList);
+                configuration.setLayoutDirection(locale);
+                context.createConfigurationContext(configuration);
+            } else {
+                configuration.locale = locale;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    configuration.setLayoutDirection(locale);
+                }
+            }
+            resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+            if (isBroadCast)
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.getActionBroadcastLanguageChanged()));
         }
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-        if (isBroadCast)
-            LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(Constants.getActionBroadcastLanguageChanged()));
-        return new LanguageContextWrapper(context.getApplicationContext());
+        return new LanguageContextWrapper(context);
     }
 
 }

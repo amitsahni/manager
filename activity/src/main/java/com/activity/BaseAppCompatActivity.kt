@@ -54,9 +54,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         TAG = localClassName
         initUI()
         val languageLiveData = LanguageLiveData(applicationContext)
-        languageLiveData.observe(this, android.arch.lifecycle.Observer {
+        languageLiveData.observeForever {
             recreate()
-        })
+        }
     }
 
     override fun onClick(v: View) {
@@ -87,12 +87,11 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     open fun onConnectivityChange(isConnectivity: Boolean) {
     }
 
-    override fun attachBaseContext(newBase: Context) {
+    override fun attachBaseContext(base: Context) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().language));
+            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext);
         } else {
-            super.attachBaseContext(newBase);
+            super.attachBaseContext(base);
         }
-        //super.attachBaseContext(LanguageContextWrapper.wrap(newBase, Locale.getDefault().language))
     }
 }

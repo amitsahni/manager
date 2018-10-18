@@ -19,7 +19,7 @@ class LanguageLiveData(val context: Context) : LiveData<Boolean>() {
 
     override fun onInactive() {
         super.onInactive()
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(languageBroadCastReceiver)
+//        LocalBroadcastManager.getInstance(context).unregisterReceiver(languageBroadCastReceiver)
 
     }
 
