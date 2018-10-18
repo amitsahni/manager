@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.common.Constants
 import com.common.LanguageContextWrapper
-import com.common.application.BaseApplication
 import com.common.broadcast.LanguageLiveData
 import java.util.*
 
@@ -53,8 +52,14 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
-        val languageLiveData = LanguageLiveData(applicationContext)
+        val languageLiveData = LanguageLiveData(this)
         languageLiveData.observeForever {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                if (Locale.getDefault().getLanguage() == "ar")
+                    getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+                else
+                    getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+            }
             recreate()
         }
     }
@@ -89,7 +94,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     override fun attachBaseContext(base: Context) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext);
+            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language));
         } else {
             super.attachBaseContext(base);
         }

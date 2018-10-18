@@ -65,11 +65,11 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun attachBaseContext(base: Context) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext);
-        } else {
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+//            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext);
+//        } else {
             super.attachBaseContext(base);
-        }
+//        }
         MultiDex.install(this)
         registerActivityLifecycleCallbacks(this)
     }
