@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.Nullable
+import android.support.annotation.RequiresApi
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -48,17 +49,21 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     /**
      * This method is used to show layout.
      */
+
     public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
         val languageLiveData = LanguageLiveData(this)
         languageLiveData.observeForever {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                if (Locale.getDefault().getLanguage() == "ar")
-                    getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            if (Build.VERSION.SDK_INT in 26..27) {
+                if (Locale.getDefault().language == "ar" ||
+                        Locale.getDefault().language == "iw" ||
+                        Locale.getDefault().language == "ur")
+                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
                 else
-                    getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
             }
             recreate()
         }
@@ -94,9 +99,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     override fun attachBaseContext(base: Context) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language));
+            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language))
         } else {
-            super.attachBaseContext(base);
+            super.attachBaseContext(base)
         }
     }
 }
