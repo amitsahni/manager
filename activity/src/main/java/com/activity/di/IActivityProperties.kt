@@ -1,7 +1,7 @@
 package com.activity.di
 
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
+import androidx.core.app.ActivityOptionsCompat
 import android.view.View
 
 

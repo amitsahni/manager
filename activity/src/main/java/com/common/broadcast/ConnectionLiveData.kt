@@ -1,6 +1,6 @@
 package com.common.broadcast
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -13,8 +13,8 @@ import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkInfo
 import android.net.NetworkRequest
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.content.LocalBroadcastManager
+import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.common.Constants
 
 class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {

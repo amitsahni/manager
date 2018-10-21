@@ -1,10 +1,10 @@
 package com.fragment
 
 import android.os.Build
-import android.support.annotation.AnimatorRes
-import android.support.annotation.IdRes
-import android.support.annotation.RequiresApi
-import android.support.v4.app.Fragment
+import androidx.annotation.AnimatorRes
+import androidx.annotation.IdRes
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import android.transition.TransitionInflater
 import android.transition.TransitionSet
 import android.view.View

@@ -1,8 +1,8 @@
 package com.fragment
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 
 /**
  * Created by clickapps on 1/11/17.

@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.Nullable
-import android.support.annotation.RequiresApi
-import android.support.v4.content.LocalBroadcastManager
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.Nullable
+import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.common.Constants
 import com.common.LanguageContextWrapper
@@ -58,7 +58,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         languageLiveData.observeForever {
             recreate()
         }
-        languageLiveData.observe(this,android.arch.lifecycle.Observer {
+        languageLiveData.observe(this, androidx.lifecycle.Observer {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             if (Build.VERSION.SDK_INT in 26..27) {
                 if (Locale.getDefault().language == "ar")
