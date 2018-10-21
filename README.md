@@ -125,7 +125,7 @@ Download
 --------
 
 ```groovy
-compile 'com.github.amitsahni:manager:1.0.4.7-alpha'
+compile 'com.github.amitsahni:manager:1.0.5'
 ```
 Add the JitPack repository to your root build.gradle:
 
