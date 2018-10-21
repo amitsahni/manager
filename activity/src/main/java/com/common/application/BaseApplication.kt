@@ -20,11 +20,9 @@ import java.util.*
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 open class BaseApplication : Application(), Application.ActivityLifecycleCallbacks {
 
-
     override fun onCreate() {
         super.onCreate()
         packageName = packageName
-
         val connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observeForever {
             (Constants.getTopActivity() as BaseAppCompatActivity).onConnectivityChange(it!!)
