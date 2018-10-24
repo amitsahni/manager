@@ -25,7 +25,8 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
         packageName = packageName
         val connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observeForever {
-            if (it != null) {
+            if (it != null
+                    && Constants.getTopActivity() is BaseAppCompatActivity) {
                 (Constants.getTopActivity() as BaseAppCompatActivity).onConnectivityChange(it)
             }
         }
