@@ -46,5 +46,6 @@ artifacts {
     archives javadocJar
 }
 repositories {
+    google()
     mavenCentral()
 }
