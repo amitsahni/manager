@@ -58,14 +58,14 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         languageLiveData.observeForever {
             recreate()
         }
-        languageLiveData.observe(this,android.arch.lifecycle.Observer {
+        languageLiveData.observe(this, android.arch.lifecycle.Observer {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            if (Build.VERSION.SDK_INT in 26..27) {
-                if (Locale.getDefault().language == "ar")
-                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                else
-                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
-            }
+//            if (Build.VERSION.SDK_INT in 26..27) {
+            if (Locale.getDefault().language == "ar")
+                window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+            else
+                window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+//            }
         })
     }
 
@@ -98,11 +98,10 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     }
 
     override fun attachBaseContext(base: Context) {
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-//            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext)
-//        } else {
-//            super.attachBaseContext(base)
-//        }
-        super.attachBaseContext(base)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext)
+        } else {
+            super.attachBaseContext(base)
+        }
     }
 }
