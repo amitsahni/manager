@@ -3,10 +3,12 @@ package com.common;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.LocaleList;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -27,6 +29,9 @@ public class LanguageContextWrapper extends ContextWrapper {
     }
 
     public static ContextWrapper wrap(@NonNull Context context, @NonNull String language, boolean isBroadCast) {
+        SharedPreferences.Editor prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefEditor.putString("language", language);
+        prefEditor.apply();
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Resources resources = context.getResources();

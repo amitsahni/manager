@@ -3,9 +3,11 @@ package com.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.support.annotation.Nullable
 import android.support.annotation.RequiresApi
 import android.support.v4.content.LocalBroadcastManager
@@ -30,7 +32,6 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     protected var TAG: String = ""
     var enableBackPress = false
     var enableOnActivityResult = false
-
     protected val bundle: Bundle
         get() {
             intent.extras?.apply {
@@ -49,7 +50,6 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     /**
      * This method is used to show layout.
      */
-
     public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TAG = localClassName
@@ -60,12 +60,12 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         }
         languageLiveData.observe(this, android.arch.lifecycle.Observer {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-//            if (Build.VERSION.SDK_INT in 26..27) {
-            if (Locale.getDefault().language == "ar")
-                window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
-            else
-                window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
-//            }
+            if (Build.VERSION.SDK_INT in 26..27) {
+                if (Locale.getDefault().language == "ar")
+                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                else
+                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            }
         })
     }
 
@@ -98,8 +98,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     }
 
     override fun attachBaseContext(base: Context) {
+        val language = PreferenceManager.getDefaultSharedPreferences(base).getString("language", Locale.getDefault().language)
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext)
+            super.attachBaseContext(LanguageContextWrapper.wrap(base, language).baseContext)
         } else {
             super.attachBaseContext(base)
         }
