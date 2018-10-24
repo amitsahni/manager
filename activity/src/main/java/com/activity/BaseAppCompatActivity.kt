@@ -56,15 +56,18 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         initUI()
         val languageLiveData = LanguageLiveData(this)
         languageLiveData.observeForever {
-            recreate()
+            if (it != null)
+                recreate()
         }
         languageLiveData.observe(this, android.arch.lifecycle.Observer {
-            @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            if (Build.VERSION.SDK_INT in 26..27) {
-                if (Locale.getDefault().language == "ar")
-                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
-                else
-                    window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+            if (it != null) {
+                @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+                if (Build.VERSION.SDK_INT in 26..27) {
+                    if (Locale.getDefault().language == "ar")
+                        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                    else
+                        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+                }
             }
         })
     }
