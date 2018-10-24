@@ -3,19 +3,15 @@ package com.common.application
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
-import android.support.v4.app.Fragment
-import android.support.v4.content.LocalBroadcastManager
 import com.activity.BaseAppCompatActivity
 import com.common.Constants
-import com.common.broadcast.InternetBroadCastReceiver
-import com.common.broadcast.NetworkBroadCastReceiver
-import com.common.interfaces.OnBackHandler
+import com.common.LanguageContextWrapper
+import com.common.broadcast.ConnectionLiveData
+import java.util.*
 
 
 /**
@@ -23,41 +19,14 @@ import com.common.interfaces.OnBackHandler
  */
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 open class BaseApplication : Application(), Application.ActivityLifecycleCallbacks {
-    var internetBroadCastReceiver: InternetBroadCastReceiver? = null
-        private set
-    private var filter: IntentFilter? = null
-    /**
-     * Gets back handler.
-     *
-     * @return the back handler
-     */
-    /**
-     * Sets back handler.
-     *
-     * @param mBackHandler the back handler
-     */
-    var backHandler: OnBackHandler? = null
-    var fragment: Fragment? = null
-        private set
 
     override fun onCreate() {
         super.onCreate()
         packageName = packageName
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            registerReceiver(NetworkBroadCastReceiver(),
-                    IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        val connectionLiveData = ConnectionLiveData(this)
+        connectionLiveData.observeForever {
+            (Constants.getTopActivity() as BaseAppCompatActivity).onConnectivityChange(it!!)
         }
-        internetBroadCastReceiver = InternetBroadCastReceiver()
-    }
-
-    /**
-     * Sets fragment when called another activity or application eg camera or gallery
-     * After completed operation set this to null.
-     *
-     * @param fragment the fragment
-     */
-    fun setOnActivityResultFragment(fragment: Fragment?) {
-        this.fragment = fragment
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -75,12 +44,10 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
         if (activity is BaseAppCompatActivity) {
             Constants.setTopActivity(activity)
         }
-        LocalBroadcastManager.getInstance(activity).registerReceiver(internetBroadCastReceiver!!, getFilter())
     }
 
     override fun onActivityPaused(activity: Activity) {
         // Nothing used
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(internetBroadCastReceiver!!)
     }
 
     override fun onActivityStopped(activity: Activity) {
@@ -96,20 +63,12 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
     }
 
     override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
+        super.attachBaseContext(base);
         MultiDex.install(this)
         registerActivityLifecycleCallbacks(this)
     }
 
     fun setPackageName(packageName: String) {
         Constants.setPackageName(packageName)
-    }
-
-    fun getFilter(): IntentFilter {
-        if (filter == null) {
-            filter = IntentFilter()
-            filter?.addAction(Constants.getActionBroadcastNetworkChanged())
-        }
-        return filter as IntentFilter
     }
 }

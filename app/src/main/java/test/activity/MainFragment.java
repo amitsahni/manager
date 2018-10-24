@@ -28,6 +28,7 @@ public class MainFragment extends BaseFragment {
             view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main, null);
             ButterKnife.bind(this, view);
             getBtn.setOnClickListener(this);
+            enableBackPress(true);
         }
         return view;
     }
@@ -46,5 +47,20 @@ public class MainFragment extends BaseFragment {
         } else {
             Log.i(getTag(), "No clickHandled");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FragmentManager.with(getFragmentActivity())
+                .pop(android.R.id.content)
+                .build();
+    }
+
+
+    @Override
+    public void onConnectivityChange(boolean isConnectivity) {
+        super.onConnectivityChange(isConnectivity);
+        Log.i(getTag(), "isConnectivity = " + isConnectivity);
     }
 }

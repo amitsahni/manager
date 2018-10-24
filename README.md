@@ -1,5 +1,4 @@
 
-# Version - 1.0.3
 ----
 ##### Really Important
 ##### BaseApplication need to extent or directly put in your app manifest
@@ -126,7 +125,7 @@ Download
 --------
 
 ```groovy
-compile 'com.github.amitsahni:manager:1.0.3'
+compile 'com.github.amitsahni:manager:1.0.5'
 ```
 Add the JitPack repository to your root build.gradle:
 
