@@ -26,11 +26,11 @@ class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
         super.onActive()
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> {
-                connectivityManager.registerDefaultNetworkCallback(networkCallback)
+                connectivityManager.registerDefaultNetworkCallback(networkCallback as ConnectivityManager.NetworkCallback)
             }
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
                 val builder = NetworkRequest.Builder().addTransportType(TRANSPORT_CELLULAR).addTransportType(TRANSPORT_WIFI)
-                connectivityManager.registerNetworkCallback(builder.build(), networkCallback)
+                connectivityManager.registerNetworkCallback(builder.build(), networkCallback as ConnectivityManager.NetworkCallback)
             }
             else -> {
                 LocalBroadcastManager.getInstance(context).registerReceiver(networkReceiver, getFilter())
@@ -41,21 +41,25 @@ class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
     override fun onInactive() {
         super.onInactive()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            connectivityManager.unregisterNetworkCallback(networkCallback)
+            connectivityManager.unregisterNetworkCallback(networkCallback as ConnectivityManager.NetworkCallback)
         } else {
             LocalBroadcastManager.getInstance(context).unregisterReceiver(networkReceiver)
         }
     }
 
-    private val networkCallback = @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    object : ConnectivityManager.NetworkCallback() {
-        override fun onAvailable(network: Network?) {
-            postValue(true)
-        }
+    @Suppress("IMPLICIT_CAST_TO_ANY")
+    private val networkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network?) {
+                postValue(true)
+            }
 
-        override fun onLost(network: Network?) {
-            postValue(false)
+            override fun onLost(network: Network?) {
+                postValue(false)
+            }
         }
+    } else {
+
     }
 
     private val networkReceiver = object : BroadcastReceiver() {
