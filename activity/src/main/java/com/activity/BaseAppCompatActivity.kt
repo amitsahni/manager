@@ -102,10 +102,11 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
 
     override fun attachBaseContext(base: Context) {
         val language = PreferenceManager.getDefaultSharedPreferences(base).getString("language", Locale.getDefault().language)
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-            super.attachBaseContext(LanguageContextWrapper.wrap(base, language).baseContext)
-        } else {
-            super.attachBaseContext(base)
-        }
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+//            super.attachBaseContext(LanguageContextWrapper.wrap(base, language).baseContext)
+//        } else {
+//            super.attachBaseContext(base)
+//        }
+        super.attachBaseContext(LanguageContextWrapper.wrap(base, language).baseContext)
     }
 }
