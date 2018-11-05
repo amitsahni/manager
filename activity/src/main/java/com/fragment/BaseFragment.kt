@@ -42,9 +42,7 @@ abstract class BaseFragment : Fragment(),
     val fragmentActivity: FragmentActivity?
         get() {
             activity?.also {
-                if (it is FragmentActivity) {
-                    return it
-                }
+                return it
             }
             return null
         }

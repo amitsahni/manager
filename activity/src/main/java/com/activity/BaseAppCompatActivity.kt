@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -34,7 +35,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     protected val bundle: Bundle
         get() {
             intent.extras?.apply {
-                return intent.extras
+                return intent.extras!!
             }
             return Bundle()
 
@@ -51,12 +52,15 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
      */
 
     public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        val language = PreferenceManager.getDefaultSharedPreferences(this).getString("language", Locale.getDefault().language)
+        LanguageContextWrapper.wrap(this, language)
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
         val languageLiveData = LanguageLiveData(this)
         languageLiveData.observeForever {
-            recreate()
+            if (it != null)
+                recreate()
         }
         languageLiveData.observe(this, androidx.lifecycle.Observer {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -98,11 +102,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     }
 
     override fun attachBaseContext(base: Context) {
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
-//            super.attachBaseContext(LanguageContextWrapper.wrap(base, Locale.getDefault().language).baseContext)
-//        } else {
-//            super.attachBaseContext(base)
-//        }
-        super.attachBaseContext(base)
+        val language = PreferenceManager.getDefaultSharedPreferences(base).getString("language", Locale.getDefault().language)
+        super.attachBaseContext(LanguageContextWrapper.wrap(base, language))
     }
 }
