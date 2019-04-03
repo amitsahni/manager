@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     bintrayRepo = 'Library'
-    bintrayName = 'base'
-    libraryName = 'base'
+    bintrayName = 'activity'
+    libraryName = 'activity'
     libraryDescription = 'Base Setup'
 
     siteUrl = 'https://github.com/amitsahni/manager'
@@ -13,7 +13,7 @@ ext {
     issueUrl = 'https://github.com/amitsahni/manager/issues'
 
     publishedGroupId = 'com.amitsahni'
-    artifact = 'base'
+    artifact = 'activity'
     libraryVersion = '0.0.1-alpha01'
 
     developerId = 'amitsahni'
@@ -27,7 +27,7 @@ ext {
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
@@ -47,10 +47,10 @@ dependencies {
 }
 
 repositories {
-    google()
+    jcenter()
     mavenCentral()
 }
 
-if (project.rootProject.file('local.properties').exists()) {
+if(project.rootProject.file('local.properties').exists()){
     apply from: 'https://raw.githubusercontent.com/amitsahni/JCenter/master/deploy.gradle'
 }
