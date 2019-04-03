@@ -1,13 +1,9 @@
 package test.activity;
 
-import android.support.transition.Fade;
-import android.support.transition.Transition;
-import android.support.transition.TransitionSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.activity.ActivityManager;
 import com.activity.BaseAppCompatActivity;
 import com.common.LanguageContextWrapper;
 

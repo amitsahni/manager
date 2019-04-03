@@ -2,6 +2,29 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
+ext {
+    bintrayRepo = 'Library'
+    bintrayName = 'base'
+    libraryName = 'base'
+    libraryDescription = 'Base Setup'
+
+    siteUrl = 'https://github.com/amitsahni/manager'
+    gitUrl = 'https://github.com/amitsahni/manager.git'
+    issueUrl = 'https://github.com/amitsahni/manager/issues'
+
+    publishedGroupId = 'com.amitsahni'
+    artifact = 'base'
+    libraryVersion = '0.0.1-alpha01'
+
+    developerId = 'amitsahni'
+    developerName = 'Amit Singh'
+    developerEmail = 'sahni1987@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
@@ -22,30 +45,12 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-// build a jar with source files
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
 
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
 repositories {
     google()
     mavenCentral()
+}
+
+if (project.rootProject.file('local.properties').exists()) {
+    apply from: 'https://raw.githubusercontent.com/amitsahni/JCenter/master/deploy.gradle'
 }

@@ -7,11 +7,10 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.multidex.MultiDex
+import android.support.v7.app.AppCompatActivity
 import com.activity.BaseAppCompatActivity
 import com.common.Constants
-import com.common.LanguageContextWrapper
 import com.common.broadcast.ConnectionLiveData
-import java.util.*
 
 
 /**
@@ -20,14 +19,18 @@ import java.util.*
 @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 open class BaseApplication : Application(), Application.ActivityLifecycleCallbacks {
 
+    var activity: AppCompatActivity? = null
+        private set
+
     override fun onCreate() {
         super.onCreate()
         packageName = packageName
         val connectionLiveData = ConnectionLiveData(this)
         connectionLiveData.observeForever {
-            if (it != null
-                    && Constants.getTopActivity() is BaseAppCompatActivity) {
-                (Constants.getTopActivity() as BaseAppCompatActivity).onConnectivityChange(it)
+            it?.let {
+                if (activity is BaseAppCompatActivity) {
+                    (activity as BaseAppCompatActivity).onConnectivityChange(it)
+                }
             }
         }
     }
@@ -35,7 +38,7 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         // Nothing used
         if (activity is BaseAppCompatActivity) {
-            Constants.setTopActivity(activity)
+            this.activity = activity
         }
     }
 
@@ -45,7 +48,7 @@ open class BaseApplication : Application(), Application.ActivityLifecycleCallbac
 
     override fun onActivityResumed(activity: Activity) {
         if (activity is BaseAppCompatActivity) {
-            Constants.setTopActivity(activity)
+            this.activity = activity
         }
     }
 
