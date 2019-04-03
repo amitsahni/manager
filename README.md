@@ -5,6 +5,8 @@
 ##### Really Important
 ##### BaseApplication need to extent or directly put in your app manifest
 
+Use `BaseAppCompatActivity` , `BaseFragment`
+
 #### Update Locale
 #### 1. Context
 #### 2. LanguageCode
