@@ -1,17 +1,11 @@
 package com.fragment
 
-import android.arch.lifecycle.Observer
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.activity.BaseAppCompatActivity
-import com.common.application.BaseApplication
-import com.common.broadcast.BackHandlerLiveData
-import com.common.broadcast.FragmentOnActivityResultLiveData
 
 
 /**
@@ -27,76 +21,27 @@ abstract class BaseFragment : Fragment(),
         View.OnClickListener {
 
 
-    private var enableBack = false
-    private var enableOnActivityResult = false
 
     protected val bundle: Bundle
         get() {
-            var bundle = arguments
-            if (bundle == null) {
-                bundle = Bundle()
+            arguments?.let {
+                return it
             }
-            return bundle
+            return Bundle()
         }
 
-    val fragmentActivity: FragmentActivity?
+    val fragmentActivity: AppCompatActivity?
         get() {
-            activity?.also {
-                if (it is FragmentActivity) {
+            activity?.let {
+                if (it is AppCompatActivity)
                     return it
-                }
             }
             return null
         }
-    var backHandler: BackHandlerLiveData? = null
-    var onResultLiveData: FragmentOnActivityResultLiveData? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        backHandler = BackHandlerLiveData(fragmentActivity!!.applicationContext)
-        onResultLiveData = FragmentOnActivityResultLiveData(fragmentActivity!!.applicationContext)
         return initUI(inflater, container)
-    }
-
-    /**
-     * Sets mFragment when called another activity or application eg camera or gallery
-     */
-    fun enableOnActivityResultFragment(enableOnActivityResultFragment: Boolean) {
-        enableOnActivityResult = enableOnActivityResultFragment
-        if (enableOnActivityResult) {
-            onResultLiveData?.observe(this, Observer {
-                val requestCode = it?.extras!!["requestCode"] as Int
-                val resultCode = it.extras!!["resultCode"] as Int
-                val data = if (it.extras!!["data"] is Intent) it.extras!!["data"] as Intent else null
-                onActivityResult(requestCode, resultCode, data)
-            })
-        } else {
-            onResultLiveData?.removeObservers(this)
-        }
-    }
-
-    /**
-     * Sets enable back handle.
-     *
-     * @param enableBack the enable back handle
-     */
-    fun enableBackPress(enableBack: Boolean) {
-        this.enableBack = enableBack
-        if (enableBack) {
-            backHandler?.observe(this, Observer {
-                onBackPressed()
-            })
-        } else {
-            backHandler?.removeObservers(this)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (fragmentActivity is BaseAppCompatActivity) {
-            (fragmentActivity as BaseAppCompatActivity).enableBackPress = this.enableBack
-            (fragmentActivity as BaseAppCompatActivity).enableOnActivityResult = this.enableOnActivityResult
-        }
     }
 
     open fun onPageSelected(pos: Int) {
@@ -104,10 +49,6 @@ abstract class BaseFragment : Fragment(),
     }
 
     override fun onClick(v: View) {
-
-    }
-
-    open fun onBackPressed() {
 
     }
 

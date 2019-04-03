@@ -41,10 +41,10 @@ public class SecondActivity extends BaseAppCompatActivity {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button) {
-            LanguageContextWrapper.wrap(this, "ar", true);
+            LanguageContextWrapper.Companion.wrap(this, "ar", true);
         }
         if (id == R.id.button1) {
-            LanguageContextWrapper.wrap(this, "en", true);
+            LanguageContextWrapper.Companion.wrap(this, "en", true);
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }
