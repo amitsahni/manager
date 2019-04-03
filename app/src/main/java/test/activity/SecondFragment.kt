@@ -1,16 +1,13 @@
 package test.activity
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import com.activity.ActivityManager
-import com.common.LanguageContextWrapper
-import com.fragment.BaseFragment
-import com.fragment.FragmentManager
-import android.content.Intent
 import android.widget.Button
 import butterknife.BindView
+import butterknife.ButterKnife
+import com.fragment.BaseFragment
 
 
 /**
@@ -28,8 +25,6 @@ open class SecondFragment : BaseFragment() {
             view = LayoutInflater.from(activity).inflate(R.layout.activity_second, null)
             ButterKnife.bind(this, view!!)
             view?.findViewById<View>(R.id.button)?.setOnClickListener(this)
-            enableBackPress(false)
-            enableOnActivityResultFragment(true)
         }
         return view!!
     }
@@ -47,16 +42,4 @@ open class SecondFragment : BaseFragment() {
             (context?.applicationContext as AppApplication).gallery(fragmentActivity)
         }
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        FragmentManager.with(fragmentActivity!!)
-                .pop(android.R.id.content)
-                .build()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
 }

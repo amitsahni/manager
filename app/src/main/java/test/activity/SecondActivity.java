@@ -1,13 +1,9 @@
 package test.activity;
 
-import android.support.transition.Fade;
-import android.support.transition.Transition;
-import android.support.transition.TransitionSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.activity.ActivityManager;
 import com.activity.BaseAppCompatActivity;
 import com.common.LanguageContextWrapper;
 
@@ -41,10 +37,10 @@ public class SecondActivity extends BaseAppCompatActivity {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button) {
-            LanguageContextWrapper.Companion.wrap(this, "ar", true);
+            LanguageContextWrapper.wrap(this, "ar", true);
         }
         if (id == R.id.button1) {
-            LanguageContextWrapper.Companion.wrap(this, "en", true);
+            LanguageContextWrapper.wrap(this, "en", true);
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }

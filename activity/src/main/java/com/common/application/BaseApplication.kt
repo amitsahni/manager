@@ -20,6 +20,7 @@ import com.common.broadcast.ConnectionLiveData
 open class BaseApplication : Application(), Application.ActivityLifecycleCallbacks {
 
     var activity: AppCompatActivity? = null
+        private set
 
     override fun onCreate() {
         super.onCreate()

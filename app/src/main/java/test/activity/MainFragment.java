@@ -1,6 +1,5 @@
 package test.activity;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.fragment.BaseFragment;
-import com.fragment.FragmentManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +26,6 @@ public class MainFragment extends BaseFragment {
             view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main, null);
             ButterKnife.bind(this, view);
             getBtn.setOnClickListener(this);
-            enableBackPress(true);
         }
         return view;
     }
@@ -39,24 +36,10 @@ public class MainFragment extends BaseFragment {
         int id = view.getId();
         if (id == R.id.button) {
             //setExitTransition(new Fade());
-            FragmentManager.with(getActivity())
-                    .replace(android.R.id.content, SecondFragment.Companion.init(SecondFragment.class, new Bundle()))
-                    // .animation(0, android.R.animator.fade_in, 0, 0)
-                    .backStack(true)
-                    .build();
         } else {
             Log.i(getTag(), "No clickHandled");
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        FragmentManager.with(getFragmentActivity())
-                .pop(android.R.id.content)
-                .build();
-    }
-
 
     @Override
     public void onConnectivityChange(boolean isConnectivity) {

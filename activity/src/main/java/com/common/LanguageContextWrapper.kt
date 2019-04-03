@@ -3,15 +3,11 @@ package com.common
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Build
 import android.os.LocaleList
 import android.preference.PreferenceManager
 import android.support.v4.content.LocalBroadcastManager
-
-import java.util.Locale
+import java.util.*
 
 /**
  * Created by clickapps on 4/9/17.
@@ -20,6 +16,7 @@ import java.util.Locale
 class LanguageContextWrapper private constructor(base: Context) : ContextWrapper(base) {
     companion object {
 
+        @JvmStatic
         @JvmOverloads
         fun wrap(context: Context, language: String, isBroadCast: Boolean = false): ContextWrapper {
             var context = context
