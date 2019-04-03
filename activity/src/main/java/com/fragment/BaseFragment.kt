@@ -68,7 +68,8 @@ abstract class BaseFragment : Fragment(),
 
     companion object {
 
-        open fun <T : Fragment> init(fragment: Class<T>, bundle: Bundle): Fragment {
+        @JvmStatic
+        fun <T : Fragment> init(fragment: Class<T>, bundle: Bundle): Fragment {
             try {
                 val f = fragment.newInstance()
                 f.arguments = bundle

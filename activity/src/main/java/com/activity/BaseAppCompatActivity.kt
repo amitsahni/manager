@@ -45,8 +45,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
      * This method is used to show layout.
      */
     public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
-        val language = PreferenceManager.getDefaultSharedPreferences(this).getString("language", Locale.getDefault().language)
-        LanguageContextWrapper.wrap(this, language)
+        PreferenceManager.getDefaultSharedPreferences(this).getString("language", Locale.getDefault().language)?.let {
+            LanguageContextWrapper.wrap(this, it)
+        }
         super.onCreate(savedInstanceState)
         TAG = localClassName
         initUI()
