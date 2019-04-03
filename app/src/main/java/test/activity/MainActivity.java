@@ -1,5 +1,6 @@
 package test.activity;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class MainActivity extends BaseAppCompatActivity {
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button) {
+            startActivity(new Intent(this, SecondActivity.class));
         } else {
             Log.i(getLocalClassName(), "No clickHandled");
         }

@@ -24,7 +24,9 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
         //to identify child tasks and perform on activity itself
         View.OnClickListener {
 
-    protected var TAG: String = ""
+    protected val TAG: String by lazy {
+        localClassName
+    }
 
     protected val bundle: Bundle
         get() {
@@ -49,7 +51,6 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
             LanguageContextWrapper.wrap(this, it)
         }
         super.onCreate(savedInstanceState)
-        TAG = localClassName
         initUI()
         val languageLiveData = LanguageLiveData(this)
         languageLiveData.observeForever {
