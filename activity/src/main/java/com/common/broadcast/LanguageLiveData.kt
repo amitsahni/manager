@@ -5,11 +5,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.NetworkInfo
 import android.support.v4.content.LocalBroadcastManager
 import com.common.Constants
 
-class LanguageLiveData(val context: Context) : LiveData<Boolean>() {
+class LanguageLiveData(private val context: Context) : LiveData<Boolean>() {
     private val filter = IntentFilter(Constants.getActionBroadcastLanguageChanged())
 
     override fun onActive() {

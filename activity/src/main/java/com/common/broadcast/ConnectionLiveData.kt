@@ -69,7 +69,7 @@ class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
         }
     }
 
-    fun getFilter(): IntentFilter {
+    private fun getFilter(): IntentFilter {
         if (filter == null) {
             filter = IntentFilter()
             filter?.addAction(Constants.getActionBroadcastNetworkChanged())

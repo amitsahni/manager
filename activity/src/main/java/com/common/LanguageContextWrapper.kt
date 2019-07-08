@@ -18,8 +18,8 @@ class LanguageContextWrapper private constructor(base: Context) : ContextWrapper
 
         @JvmStatic
         @JvmOverloads
-        fun wrap(context: Context, language: String, isBroadCast: Boolean = false): ContextWrapper {
-            var context = context
+        fun wrap(cxt: Context, language: String, isBroadCast: Boolean = false): ContextWrapper {
+            var context = cxt
             val prefEditor = PreferenceManager.getDefaultSharedPreferences(context).edit()
             prefEditor.putString("language", language)
             prefEditor.apply()

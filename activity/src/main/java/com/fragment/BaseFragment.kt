@@ -21,23 +21,23 @@ abstract class BaseFragment : Fragment(),
         View.OnClickListener {
 
 
-
-    protected val bundle: Bundle
-        get() {
-            arguments?.let {
-                return it
-            }
-            return Bundle()
+    val bundle: Bundle by lazy {
+        val b = if (arguments == null) {
+            Bundle()
+        } else {
+            arguments
         }
+        b!!
+    }
 
-    val fragmentActivity: AppCompatActivity?
-        get() {
-            activity?.let {
-                if (it is AppCompatActivity)
-                    return it
-            }
-            return null
+    val fragmentActivity: AppCompatActivity? by lazy {
+        var act: AppCompatActivity? = null
+        activity?.let {
+            if (it is AppCompatActivity)
+                act = it
         }
+        act
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -65,6 +65,7 @@ abstract class BaseFragment : Fragment(),
      * @return the mView
      */
     protected abstract fun initUI(inflater: LayoutInflater, container: ViewGroup?): View
+
 
     companion object {
 
