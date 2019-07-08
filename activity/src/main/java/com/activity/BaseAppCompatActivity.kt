@@ -78,7 +78,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
     }
 
     override fun attachBaseContext(base: Context) {
-        val language = PreferenceManager.getDefaultSharedPreferences(base).getString("language", Locale.getDefault().language)
+        val language = PreferenceManager.getDefaultSharedPreferences(base).getString("language", Locale.getDefault().language) ?: ""
         super.attachBaseContext(LanguageContextWrapper.wrap(base, language))
     }
 }
