@@ -19,7 +19,7 @@ Download
 --------
 
 ```groovy
-implementation 'com.amitsahni:base:0.0.1-aplha01'
+implementation 'com.amitsahni:base:0.0.1-aplha03'
 ```
 Add the JitPack repository to your root build.gradle:
 

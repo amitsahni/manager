@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.LocaleList
 import android.preference.PreferenceManager
-import android.support.v4.content.LocalBroadcastManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import java.util.*
 
 /**
@@ -44,7 +44,7 @@ class LanguageContextWrapper private constructor(base: Context) : ContextWrapper
             }
             resources.updateConfiguration(configuration, resources.displayMetrics)
             if (isBroadCast)
-                LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(Constants.getActionBroadcastLanguageChanged()))
+                androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(Constants.getActionBroadcastLanguageChanged()))
             return LanguageContextWrapper(context)
         }
     }

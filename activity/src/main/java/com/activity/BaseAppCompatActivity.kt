@@ -5,9 +5,9 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.annotation.Nullable
-import android.support.annotation.RequiresApi
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.Nullable
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import com.common.LanguageContextWrapper
 import com.common.broadcast.LanguageLiveData
@@ -57,7 +57,7 @@ abstract class BaseAppCompatActivity : AppCompatActivity(),
             if (it != null)
                 recreate()
         }
-        languageLiveData.observe(this, android.arch.lifecycle.Observer {
+        languageLiveData.observe(this, androidx.lifecycle.Observer {
             if (it != null) {
                 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
                 if (Build.VERSION.SDK_INT in 26..27) {

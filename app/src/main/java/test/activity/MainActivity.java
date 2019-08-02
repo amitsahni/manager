@@ -3,29 +3,21 @@ package test.activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-
 import com.activity.BaseAppCompatActivity;
 
 import java.util.Arrays;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by clickapps on 31/8/17.
  */
 
 public class MainActivity extends BaseAppCompatActivity {
-    @BindView(R.id.button)
-    Button getBtn;
 
 
     @Override
     protected void initUI() {
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        getBtn.setOnClickListener(this);
+        findViewById(R.id.button).setOnClickListener(this);
         String[] a = {"1","2"};
         String value = Arrays.toString(a);
         Log.i(getLocalClassName(),"Value = "+value);

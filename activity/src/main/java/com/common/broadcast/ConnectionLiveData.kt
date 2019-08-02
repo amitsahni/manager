@@ -1,6 +1,6 @@
 package com.common.broadcast
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
@@ -13,8 +13,8 @@ import android.net.NetworkCapabilities.TRANSPORT_WIFI
 import android.net.NetworkInfo
 import android.net.NetworkRequest
 import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v4.content.LocalBroadcastManager
+import androidx.annotation.RequiresApi
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.common.Constants
 
 class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
@@ -33,7 +33,7 @@ class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
                 connectivityManager.registerNetworkCallback(builder.build(), networkCallback as ConnectivityManager.NetworkCallback)
             }
             else -> {
-                LocalBroadcastManager.getInstance(context).registerReceiver(networkReceiver, getFilter())
+                androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).registerReceiver(networkReceiver, getFilter())
             }
         }
     }
@@ -43,7 +43,7 @@ class ConnectionLiveData(val context: Context) : LiveData<Boolean>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             connectivityManager.unregisterNetworkCallback(networkCallback as ConnectivityManager.NetworkCallback)
         } else {
-            LocalBroadcastManager.getInstance(context).unregisterReceiver(networkReceiver)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(context).unregisterReceiver(networkReceiver)
         }
     }
 

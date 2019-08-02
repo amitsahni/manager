@@ -1,11 +1,11 @@
 package com.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 
 
 /**
@@ -70,7 +70,7 @@ abstract class BaseFragment : Fragment(),
     companion object {
 
         @JvmStatic
-        fun <T : Fragment> init(fragment: Class<T>, bundle: Bundle): Fragment {
+        fun <T : androidx.fragment.app.Fragment> init(fragment: Class<T>, bundle: Bundle): androidx.fragment.app.Fragment {
             try {
                 val f = fragment.newInstance()
                 f.arguments = bundle
@@ -81,7 +81,7 @@ abstract class BaseFragment : Fragment(),
                 e.printStackTrace()
             }
 
-            return Fragment()
+            return androidx.fragment.app.Fragment()
         }
     }
 }
